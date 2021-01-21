@@ -1,6 +1,17 @@
+import { Nav } from '../molecules/index'
+import { MySurveys, ButtonAddSurvey, IconAdd } from '../styled/Home'
+
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <>
+            <Nav />
+            <MySurveys>
+                <ButtonAddSurvey secondary>
+                    Crear Nueva encuesta
+                    <IconAdd />
+                </ButtonAddSurvey>
+            </MySurveys>
+        </>
     )
 }
 
