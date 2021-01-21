@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, LogIn, SingUp, MySurveys, Survey, ViewSurveys } from '../pages/index'
+import { Home, LogIn, SingUp, MySurveys, Survey, ViewSurveys, Footer } from '../pages/index'
 
 const Routes = () => {
     return(
@@ -14,6 +14,7 @@ const Routes = () => {
                 <Route  exact path="/viewsurvey" component={ ViewSurveys } />
                 <Route component={ () => <h1>Error 404</h1> } />
             </Switch>
+            <Footer />
         </Router>
     )
 }

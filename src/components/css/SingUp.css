@@ -1,0 +1,112 @@
+.singUp-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 30px;
+}
+
+.side1 {
+    display: flex;
+    width: 50%;
+}
+
+.image-container img {
+    width: 100%;
+}
+
+.side2 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 50%;
+}
+
+.side2-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+}
+
+.title-singup {
+    text-align: center;
+    font-family: 'Yusei Magic', sans-serif;
+    margin-bottom: 20px;
+}
+
+.title-singup h1 {
+    margin: 0;
+}
+
+.form input {
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    width: 300px;
+    height: 25px;
+    display: flex;
+    margin-bottom: 25px;
+    padding: 5px;
+    border: none;
+    border-bottom: solid 1px black;
+    background-color: transparent;
+    outline: none;
+}
+
+:focus::-webkit-input-placeholder { color: transparent; }
+
+.buttons button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 50px;
+    outline: none;
+}
+
+.signup-btn {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 1.400rem;
+    background-color: #6C63FF;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    box-shadow: 1px 1px 3px black;
+}
+
+.signup-btn:hover {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 1.400rem;
+    background-color: #6b63ffd8;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.login-btn {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 1.400rem;
+    background-color: transparent;
+    border-radius: 30px;
+    border: solid 2px #6C63FF;
+    color: #6C63FF;
+    box-shadow: 1px 1px 3px black;
+}
+
+.login-btn:hover {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 1.400rem;
+    background-color: #6b63ff48;
+    border-radius: 30px;
+    border: solid 2px #6C63FF;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.container {
+    margin: 0px;
+}
+
+.content {
+    border-top: solid 1px white;
+    padding: 12px;
+    text-align: center;
+}
+
+.content h1 {
+    margin: 0px;
+    margin-left: 10px;
+    font-family: 'Potta One', cursive;
+    font-size: 25px;
+}
+
+.content p {
+    margin: 0px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
