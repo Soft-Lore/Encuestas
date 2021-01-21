@@ -1,0 +1,6 @@
+export { default as Home } from './Home'
+export { default as LogIn } from './LogIn'
+export { default as SingUp } from './SingUp'
+export { default as Survey } from './Survey'
+export { default as ViewSurveys } from './ViewSurveys'
+export { default as MySurveys } from './MySurveys'
