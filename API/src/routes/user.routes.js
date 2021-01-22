@@ -10,7 +10,7 @@ app.get('/users',controllers.GetAllUser);
 
 app.get('/users/:id',controllers.GetOneUser);
 
-app.post('/singup',validate(userSchema,'body'),controllers.PostUser);
+app.post('/singup',validate(userSchema),controllers.PostUser);
 
 app.put('/users/:id',controllers.PutUser);
 
