@@ -14,7 +14,31 @@ exports.GetAllUser = (req,res) => {
 
 
 exports.PostUser = (req,res) => {
-    res.send('post user');
+    let body = req.body;
+
+    let user = new User({
+        name:body.name,
+        email:body.email,
+        password:bcrypjs.hashSync(body.password,10),
+        role:body.role
+    });
+
+    user.save((err,userDB)=>{
+        
+        if (err) {
+            return res.status(400).json({
+                ok:false,
+                message:'Bad Request',
+                error: err
+            });
+        }
+
+        return res.status(200).json({
+            ok:true,
+            message:'User successfully created',
+            userDB
+        });
+    });
 }
 
 
