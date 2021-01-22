@@ -21,11 +21,3 @@ export const validatePassword = password => {
         return ""
     }
 }
-
-export const validateConfPassword = confPass => {
-    if (!confPass) {
-        return "*Campo vacio"
-    }  else {
-        return ""
-    }
-}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { validateUsername, validateEmail, validatePassword, validateConfPassword } from '../SignUpValidation'
+import { validateUsername, validateEmail, validatePassword } from '../SignUpValidation'
 
 const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
     const [values, setValues] = useState({
@@ -9,8 +9,6 @@ const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
         errorEmail: "",
         password: "",
         errorPassword: "",
-        confPassword: "",
-        errorConfPassword: ""
     });
 
     const captureUsername = () => {
@@ -21,8 +19,6 @@ const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
             errorEmail: "",
             password: passwordRef.current.value,
             errorPassword: "",
-            confPassword: confPasswordRef.current.value,
-            errorConfPassword: ""
         })
     }
 
@@ -34,8 +30,6 @@ const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
             errorEmail: validateEmail(emailRef.current.value),
             password: passwordRef.current.value,
             errorPassword: "",
-            confPassword: confPasswordRef.current.value,
-            errorConfPassword: ""
         })
     }
 
@@ -47,25 +41,10 @@ const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
             errorEmail: validateEmail(emailRef.current.value),
             password: passwordRef.current.value,
             errorPassword: validatePassword(passwordRef.current.value),
-            confPassword: confPasswordRef.current.value,
-            errorConfPassword: ""
         })
     }
 
-    const captureConfPassword = () => {
-        setValues({
-            username: usernameRef.current.value,
-            errorUsername: validateUsername(usernameRef.current.value),
-            email: emailRef.current.value,
-            errorEmail: validateEmail(emailRef.current.value),
-            password: passwordRef.current.value,
-            errorPassword: validatePassword(passwordRef.current.value),
-            confPassword: confPasswordRef.current.value,
-            errorConfPassword: validateConfPassword(confPasswordRef.current.value)
-        })
-    }
-
-    return { values, captureUsername, captureEmail, capturePassword, captureConfPassword }
+    return { values, captureUsername, captureEmail, capturePassword }
 }
 
 export default useForm

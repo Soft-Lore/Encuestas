@@ -11,9 +11,8 @@ const SingUp = () => {
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const confPasswordRef = useRef();
 
-    const { values, captureUsername, captureEmail, capturePassword, captureConfPassword } = useForm(usernameRef, emailRef, passwordRef, confPasswordRef);
+    const { values, captureUsername, captureEmail, capturePassword } = useForm(usernameRef, emailRef, passwordRef);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -21,7 +20,6 @@ const SingUp = () => {
             username: values.username,
             email: values.email,
             password: values.password,
-            password2: values.confPass
         }
         console.log(valuesName);
     }
@@ -60,15 +58,6 @@ const SingUp = () => {
                             onChange={capturePassword}
                         />
                         {values.errorPassword && <Errors error={values.errorPassword}/>}
-                        <input
-                            name="confPass"
-                            type="password"
-                            id="confirmPass"
-                            placeholder="Confirmar contraseña"
-                            ref={confPasswordRef}
-                            onChange={captureConfPassword}
-                        />
-                        {values.errorConfPassword && <Errors error={values.errorConfPassword}/>}
                         <div className="buttons">
                             <button className="signup-btn">Registrarse</button>
                             <button className="login-btn" onClick={() => history.push('/login')}>Iniciar Sesion</button>
