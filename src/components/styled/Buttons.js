@@ -1,9 +1,9 @@
 import { css } from 'styled-components'
 
 export const Button = css`
-    background-color: ${ props => props.secondary ? "#212529" : null };
-    color: ${ props => !props.secondary ? "#212529" : "#CED4DA" };
-    border: 1px solid ${ props => !props.secondary ? "#212529" : null };
+    background-color: ${ props => props.secondary ? "#6C63FF" : null };
+    color: ${ props => !props.secondary ? "#6C63FF" : "#fff" };
+    border: 1px solid ${ props => !props.secondary ? "#6C63FF" : null };
     display: block;
     width: max-content;
     padding-left: 25px;
@@ -17,9 +17,9 @@ export const Button = css`
         transition: all .1s ease-in;
     
         &:hover {
-            background-color: ${ props => !props.secondary ? "#212529" : "transparent" };;
-            color: ${ props => props.secondary ? "#212529" : "#CED4DA" };
-            border: 1px solid ${ props => props.secondary ? "#212529" : null };
+            background-color: ${ props => !props.secondary ? "#6C63FF" : "transparent" };
+            color: ${ props => props.secondary ? "#6C63FF" : "#fff" };
+            border: 1px solid ${ props => props.secondary ? "#6C63FF" : null };
         }
     }
 

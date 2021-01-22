@@ -1,25 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import SingImg from '../../img/signup.png'
 import useForm from '../hooks/useForm'
 import validate from '../SignUpValidation'
+import { Errors, TitleForm } from '../atom/index'
 import '../css/SingUp.css'
+import { SideImage } from '../molecules/index'
 
 const SingUp = () => {
     const { handleSubmit, usernameRef, emailRef, passwordRef, confPasswordRef, errors } = useForm(validate);
+    const history = useHistory()
 
     return (
         <div className="singUp-content">
-            <div className="side1">
-                <div className="image-container">
-                    <img src={ SingImg } alt="singup"/>
-                </div>
-            </div>
+            <SideImage image={ SingImg }/>
             <div className="side2">
                 <div className="side2-content">
-                    <div className="title-singup">
-                        <h1>Registrarse</h1>
-                    </div>
+                    <TitleForm content="Registrarse"/>
                     <form onSubmit={handleSubmit} className="form">
                         <input
                             name="username"
@@ -28,7 +25,7 @@ const SingUp = () => {
                             placeholder="Nombre de Usuario"
                             ref={usernameRef}
                         />
-                        {errors.username && <p className="error">{errors.username}</p>}
+                        {errors.username && <Errors error={errors.username}/>}
                         <input
                             name="email"
                             type="email"
@@ -36,7 +33,7 @@ const SingUp = () => {
                             placeholder="Correo"
                             ref={emailRef}
                         />
-                        {errors.email && <p className="error">{errors.email}</p>}
+                        {errors.email && <Errors error={errors.email}/>}
                         <input
                             name="password"
                             type="password"
@@ -44,7 +41,7 @@ const SingUp = () => {
                             placeholder="Contraseña"
                             ref={passwordRef}
                         />
-                        {errors.password && <p className="error">{errors.password}</p>}
+                        {errors.password && <Errors error={errors.password}/>}
                         <input
                             name="confirmPass"
                             type="password"
@@ -52,10 +49,10 @@ const SingUp = () => {
                             placeholder="Confirmar contraseña"
                             ref={confPasswordRef}
                         />
-                        {errors.confPassword && <p className="error">{errors.confPassword}</p>}
+                        {errors.confPassword && <Errors error={errors.confPassword}/>}
                         <div className="buttons">
                             <button className="signup-btn">Registrarse</button>
-                            <Link to={'/login'} className="login-btn">Iniciar Sesion</Link>
+                            <button className="login-btn" onClick={() => history.push('/login')}>Iniciar Sesion</button>
                         </div>
                     </form>
                 </div>
