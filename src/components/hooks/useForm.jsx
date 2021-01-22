@@ -1,33 +1,71 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+import { validateUsername, validateEmail, validatePassword, validateConfPassword } from '../SignUpValidation'
 
-const useForm = validate => {
+const useForm = (usernameRef, emailRef, passwordRef, confPasswordRef) => {
     const [values, setValues] = useState({
         username: "",
+        errorUsername: "",
         email: "",
+        errorEmail: "",
         password: "",
-        confPassword: ""
+        errorPassword: "",
+        confPassword: "",
+        errorConfPassword: ""
     });
 
-    const usernameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const confPasswordRef = useRef();
-
-    const [errors, setErrors] = useState({});
-
-    const handleSubmit = e => {
-        e.preventDefault();
+    const captureUsername = () => {
         setValues({
             username: usernameRef.current.value,
+            errorUsername: validateUsername(usernameRef.current.value),
             email: emailRef.current.value,
+            errorEmail: "",
             password: passwordRef.current.value,
-            confPassword: confPasswordRef.current.value
+            errorPassword: "",
+            confPassword: confPasswordRef.current.value,
+            errorConfPassword: ""
         })
-
-        setErrors(validate(values))
     }
 
-    return { handleSubmit, usernameRef, emailRef, passwordRef, confPasswordRef, errors }
+    const captureEmail = () => {
+        setValues({
+            username: usernameRef.current.value,
+            errorUsername: validateUsername(usernameRef.current.value),
+            email: emailRef.current.value,
+            errorEmail: validateEmail(emailRef.current.value),
+            password: passwordRef.current.value,
+            errorPassword: "",
+            confPassword: confPasswordRef.current.value,
+            errorConfPassword: ""
+        })
+    }
+
+    const capturePassword = () => {
+        setValues({
+            username: usernameRef.current.value,
+            errorUsername: validateUsername(usernameRef.current.value),
+            email: emailRef.current.value,
+            errorEmail: validateEmail(emailRef.current.value),
+            password: passwordRef.current.value,
+            errorPassword: validatePassword(passwordRef.current.value),
+            confPassword: confPasswordRef.current.value,
+            errorConfPassword: ""
+        })
+    }
+
+    const captureConfPassword = () => {
+        setValues({
+            username: usernameRef.current.value,
+            errorUsername: validateUsername(usernameRef.current.value),
+            email: emailRef.current.value,
+            errorEmail: validateEmail(emailRef.current.value),
+            password: passwordRef.current.value,
+            errorPassword: validatePassword(passwordRef.current.value),
+            confPassword: confPasswordRef.current.value,
+            errorConfPassword: validateConfPassword(confPasswordRef.current.value)
+        })
+    }
+
+    return { values, captureUsername, captureEmail, capturePassword, captureConfPassword }
 }
 
 export default useForm

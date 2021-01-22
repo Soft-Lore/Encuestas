@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import SingImg from '../../img/signup.png'
 import useForm from '../hooks/useForm'
-import validate from '../SignUpValidation'
 import { Errors, TitleForm } from '../atom/index'
 import '../css/SingUp.css'
 import { SideImage } from '../molecules/index'
 
 const SingUp = () => {
-    const { handleSubmit, usernameRef, emailRef, passwordRef, confPasswordRef, errors } = useForm(validate);
-    const history = useHistory()
+    const history = useHistory();
+    const usernameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const confPasswordRef = useRef();
+
+    const { values, captureUsername, captureEmail, capturePassword, captureConfPassword } = useForm(usernameRef, emailRef, passwordRef, confPasswordRef);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        const valuesName = {
+            username: values.username,
+            email: values.email,
+            password: values.password,
+            password2: values.confPass
+        }
+        console.log(valuesName);
+    }
 
     return (
         <div className="singUp-content">
@@ -17,39 +32,43 @@ const SingUp = () => {
             <div className="side2">
                 <div className="side2-content">
                     <TitleForm content="Registrarse"/>
-                    <form onSubmit={handleSubmit} className="form">
+                    <form onSubmit={e => handleSubmit(e)} className="form">
                         <input
                             name="username"
                             type="text"
                             id="username"
                             placeholder="Nombre de Usuario"
                             ref={usernameRef}
+                            onChange={captureUsername}
                         />
-                        {errors.username && <Errors error={errors.username}/>}
+                        {values.errorUsername && <Errors error={values.errorUsername}/>}
                         <input
                             name="email"
                             type="email"
                             id="email"
                             placeholder="Correo"
                             ref={emailRef}
+                            onChange={captureEmail}
                         />
-                        {errors.email && <Errors error={errors.email}/>}
+                        {values.errorEmail && <Errors error={values.errorEmail}/>}
                         <input
                             name="password"
                             type="password"
                             id="password"
                             placeholder="Contraseña"
                             ref={passwordRef}
+                            onChange={capturePassword}
                         />
-                        {errors.password && <Errors error={errors.password}/>}
+                        {values.errorPassword && <Errors error={values.errorPassword}/>}
                         <input
-                            name="confirmPass"
+                            name="confPass"
                             type="password"
                             id="confirmPass"
                             placeholder="Confirmar contraseña"
                             ref={confPasswordRef}
+                            onChange={captureConfPassword}
                         />
-                        {errors.confPassword && <Errors error={errors.confPassword}/>}
+                        {values.errorConfPassword && <Errors error={values.errorConfPassword}/>}
                         <div className="buttons">
                             <button className="signup-btn">Registrarse</button>
                             <button className="login-btn" onClick={() => history.push('/login')}>Iniciar Sesion</button>

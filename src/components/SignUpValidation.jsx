@@ -1,29 +1,31 @@
-export default function validateInfo(values) {
-    let errors = {}
-
-    // username
-    if (!values.username.trim()) {
-        errors.username = "*Campo vacio"
+export const validateUsername = username => {
+    if (!username) {
+        return "*Campo vacio"
     }
+}
 
-    //email
-    if (!values.email) {
-        errors.email = "*Campo vacio"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-        errors.email = "*Direccion de correo no valida"
+export const validateEmail = email => {
+    if (!email) {
+        return "*Campo vacio"
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+        return "*Direccion de correo no valida"
     }
+}
 
-    if (!values.password) {
-        errors.password = "*Campo vacio"
-    } else if (values.password.length < 6) {
-        errors.password = "*Debe tener 6 o mas caracteres"
+export const validatePassword = password => {
+    if (!password) {
+        return "*Campo vacio"
+    } else if (password.length < 6) {
+        return "*Debe tener 6 o mas caracteres"
+    } else {
+        return ""
     }
+}
 
-    if (!values.confPassword) {
-        errors.confPassword = "*Campo vacio"
-    } else if (values.confPassword !== values.password) {
-        errors.confPassword = "*Las contraseñas no coinsiden"
+export const validateConfPassword = confPass => {
+    if (!confPass) {
+        return "*Campo vacio"
+    }  else {
+        return ""
     }
-
-    return errors
 }
