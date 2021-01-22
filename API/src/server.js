@@ -25,3 +25,4 @@ app.use(bodyParser.json());
 
 //routes
 app.use(require('./routes/user.routes'));
+app.use(require('./routes/login.routes'));
