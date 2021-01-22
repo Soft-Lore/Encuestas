@@ -13,7 +13,8 @@ export const MySurveys = styled.section`
     padding-top: 20px;
     border-radius: 15px 15px 0 0;
     margin: auto;
-    margin-top: 60px;
+    margin-top: 80px;
+    margin-bottom: 40px;
     width: 85%;
     background-color: white;
     height: calc(100vh - 80px);

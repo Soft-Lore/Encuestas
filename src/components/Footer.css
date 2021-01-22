@@ -1,9 +1,10 @@
 .container {
     margin: 0px;
+    height: 20vh;
 }
 
 .content {
-    padding: 12px;
+    /* padding: 12px; */
     text-align: center;
 }
 

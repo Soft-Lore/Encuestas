@@ -14,7 +14,9 @@ export const NavBar = styled.nav`
     align-items: center;
     width: 100%;
     height: 50px;
-    background-color: #CED4DA;
+    background-color: white;
+    z-index: 10;
+    padding-bottom: 10px;
 `; 
     
 export const NavButton = styled(NavLink)`
