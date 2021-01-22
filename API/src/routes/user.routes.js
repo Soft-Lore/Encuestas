@@ -6,15 +6,15 @@ const app = Router();
 
 const controllers = require('../controllers/user.controllers');
 
-app.get('/users',controllers.GetAllUser);
+app.get('/api/users',controllers.GetAllUser);
 
-app.get('/users/:id',controllers.GetOneUser);
+app.get('/api/users/:id',controllers.GetOneUser);
 
-app.post('/singup',validate(userSchema),controllers.PostUser);
+app.post('/api/singup',validate(userSchema),controllers.PostUser);
 
-app.put('/users/:id',controllers.PutUser);
+app.put('/api/users/:id',controllers.PutUser);
 
-app.delete('/users/:id',controllers.DeleteUser);
+app.delete('/api/users/:id',controllers.DeleteUser);
 
 
 
