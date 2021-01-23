@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -22,6 +23,7 @@ require('./database');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //routes
 app.use(require('./routes/user.routes'));

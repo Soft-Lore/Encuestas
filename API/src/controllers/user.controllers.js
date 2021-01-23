@@ -1,4 +1,3 @@
-const bcrypjs = require('bcryptjs');
 const _ = require('underscore');
 
 const User = require('../models/user.models');
@@ -60,30 +59,40 @@ exports.GetAllUser = (req,res) => {
 
 
 exports.PostUser = (req,res) => {
-    let body = req.body;
 
-    let user = new User({
+    let body = req.body;
+    
+    let newUser = new User({
         name:body.name,
         email:body.email,
-        password:bcrypjs.hashSync(body.password,10),
+        password:body.password,
         rols:body.role
     });
 
-    user.save((err,userDB)=>{
+
+    User.findOne({email:newUser.email},(Err,user)=>{
         
-        if (err) {
+        if (user) {
             return res.status(400).json({
                 ok:false,
-                message:'Bad Request',
-                error: err
+                message :"email exits"
             });
         }
 
-        return res.status(201).json({
-            ok:true,
-            message:'User successfully created',
-            userDB
+        newUser.save((err,doc)=>{
+            if (err) {
+                return res.status(400).json({
+                    ok:false,
+                    message:'Bad Request',
+                })
+            }
+
+            return res.status(200).json({
+                ok:true,
+                User:doc
+            });
         });
+        
     });
 }
 

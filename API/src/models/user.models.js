@@ -2,6 +2,11 @@ const {Schema,model} = require('mongoose');
 
 const MongooseUnique = require('mongoose-unique-validator');
 
+const jwt = require('jsonwebtoken');
+
+const bcrypjs = require('bcryptjs');
+
+const salt=10;
 
 let validateEmail = (email) => {
     let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -22,7 +27,7 @@ const User = new Schema({
         type: String,
         required: [true, 'Email is necessary to register'],
         trim:true,
-        unique:true,
+        unique:1,
         lowercase:true,
         validate:[validateEmail,'Please enter a valid email'],
         match:[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,'Please complete the Email'],
@@ -57,10 +62,36 @@ const User = new Schema({
         type:String,
         enum:ValidRols,
         default:'USER_ROLE'
+    },
+    token:{
+        type:String
     }
 },{
     timestamps:true
 });
+
+// to signup a user
+User.pre('save',function(next){
+    var user = this;
+
+    if (user.isModified('password')) {
+        bcrypjs.genSalt(salt,function (err,salt) {
+            if(err) return next(err);
+            
+            bcrypjs.hash(user.password,salt,function (err,hash) {
+                if(err) return next(err);
+
+                user.password=hash;
+                next();
+            });
+        })
+    }else{
+        next();
+    }
+});
+
+
+
 
 User.methods.toJSON = function () {
     let user = this;
