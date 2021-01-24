@@ -1,27 +1,40 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import SingImg from '../../img/signup.png'
 import useForm from '../hooks/useForm'
 import { Errors, TitleForm } from '../atom/index'
 import '../css/SingUp.css'
 import { SideImage } from '../molecules/index'
+import axios from 'axios'
 
 const SingUp = () => {
     const history = useHistory();
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-
+    const [error, setError] = useState();
     const { values, captureUsername, captureEmail, capturePassword } = useForm(usernameRef, emailRef, passwordRef);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        const valuesName = {
-            username: values.username,
-            email: values.email,
-            password: values.password,
-        }
-        console.log(valuesName);
+        
+        await axios({
+            method: 'POST',
+            url: '/api/signup',
+            data: {
+                name: values.username,
+                email: values.email,
+                password: values.password
+            }
+        }).then(resp => {
+            return resp.data
+        }).then(resp => {
+            if(resp.ok) {
+                history.push('/login')
+            } else if(resp.ok === false) {
+                setError("perra")
+            }
+        })
     }
 
     return (
@@ -31,6 +44,11 @@ const SingUp = () => {
                 <div className="side2-content">
                     <TitleForm content="Registrarse"/>
                     <form onSubmit={e => handleSubmit(e)} className="form">
+                        {
+                            error ? (
+                                <Errors error={ error }/>
+                            ) : null
+                        }
                         <input
                             name="username"
                             type="text"

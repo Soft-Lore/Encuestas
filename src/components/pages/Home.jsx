@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useHistory, withRouter } from 'react-router-dom'
 import { Nav } from '../molecules/index'
-import { MySurveys, ButtonAddSurvey, IconAdd, CardContainer } from '../styled/Home'
+import { MySurveys, ButtonAddSurvey, IconAdd } from '../styled/Home'
 import Cookies from 'universal-cookie'
 
 const cookie = new Cookies()
@@ -29,9 +29,6 @@ const Home = () => {
                     Crear Nueva encuesta
                     <IconAdd />
                 </ButtonAddSurvey>
-                <CardContainer>
-                    
-                </CardContainer>
             </MySurveys>
         </>
     )
