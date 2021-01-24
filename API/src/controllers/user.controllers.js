@@ -73,18 +73,12 @@ exports.PostUser = (req,res) => {
     User.findOne({email:newUser.email},(Err,user)=>{
         
         if (user) {
-            return res.status(400).json({
-                ok:false,
-                message :"Ese email ya existe! 😑😑"
-            });
+            return res.json({ok:false, message :"Ese email ya existe! 😑😑"});
         }
 
         newUser.save((err,doc)=>{
             if (err) {
-                return res.status(400).json({
-                    ok:false,
-                    message:'Solicitud Incorrecta! 😝😝',
-                })
+                return res.json({ok:false, message: 'Solicitud Incorrecta! 😝😝'})
             }
 
             return res.status(200).json({
