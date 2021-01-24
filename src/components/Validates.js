@@ -10,7 +10,7 @@ export const validatePassword = (password) => {
     if(password.length > 6){
         return "";
     }
-     else if(password.length < 6){
+     else if(password.length < 5){
         return "Su contraseña debe tener como minimo 6 caracteres"
     }
     else if(!password || password.length === 0){

@@ -1,2 +1,3 @@
-export { default as NavBar, NavButton, SectionButtons, NavLogOut } from './Nav'
-export { default as MySurveys, ButtonAddSurvey, IconAdd } from './Home'
+export { NavBar, NavButton, SectionButtons, NavLogOut } from './Nav';
+export { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from './Home';
+export { Card as Cards, CardItem, CardHeader, CardButton, CardHeaders } from './Card';

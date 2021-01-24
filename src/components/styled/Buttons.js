@@ -1,9 +1,8 @@
 import { css } from 'styled-components'
 
 export const Button = css`
-    background-color: ${ props => props.secondary ? "#6C63FF" : null };
-    color: ${ props => !props.secondary ? "#6C63FF" : "#fff" };
-    border: 1px solid ${ props => !props.secondary ? "#6C63FF" : null };
+    background-color: #6C63FF;
+    color: #fff;
     display: block;
     width: max-content;
     padding-left: 25px;
@@ -11,15 +10,17 @@ export const Button = css`
     border-radius: 80px;
     cursor: pointer;
     font-family: 'Dosis', sans-serif;
+    border: 1px solid #919191;
     font-size: 1rem;
+    box-shadow: 1px 1px 3px black;
 
     @media screen and (min-width: 600px){
         transition: all .1s ease-in;
     
         &:hover {
-            background-color: ${ props => !props.secondary ? "#6C63FF" : "transparent" };
-            color: ${ props => props.secondary ? "#6C63FF" : "#fff" };
-            border: 1px solid ${ props => props.secondary ? "#6C63FF" : null };
+            background-color: transparent;
+            color: #6C63FF;
+            border: 1px solid #6C63FF;
         }
     }
 

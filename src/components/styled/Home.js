@@ -34,3 +34,7 @@ export const ButtonAddSurvey = styled.button`
     display: block;
     margin: auto;
 `;
+
+export const CardContainer = styled.div`
+    width: 100%;
+`;

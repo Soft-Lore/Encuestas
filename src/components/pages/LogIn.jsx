@@ -1,24 +1,38 @@
-import React, { useRef } from 'react'
-import { SideImage } from '../molecules/index'
+import React, { useRef, useState } from 'react'
 import LogInImage from '../../img/login.png'
+import { SideImage } from '../molecules/index'
 import { TitleForm, Errors } from '../atom/index'
 import { useHistory } from 'react-router-dom'
 import { useLogIn } from '../hooks/index'
+import axios from 'axios'
 
 const LogIn = () => {
     const history = useHistory()
     const email = useRef()
     const password = useRef()
+    const [error, setError] = useState()
+    const { form, captureEmail, capturePassword } = useLogIn(email, password)
 
-    const { values, captureName, capturePassword } = useLogIn(email, password)
-
-    const sendData = (e) => {
+    const toggleSubmit = async (e) => {
         e.preventDefault()
-        const val = {
-            username: values.username,
-            password: values.password
+        const request = {
+            email: form.userEmail,
+            password: form.password
         }
-        console.log(val);
+     
+        await axios.post('/api/login', request)
+        .then(resp => {
+            return resp.data
+        })
+        .then(response => {
+            if(response.isAuth){
+                history.push('/')
+            }else {
+                if(!response.isAuth){
+                    setError(response.message)
+                }
+            }
+        })
     }
 
     return (
@@ -27,18 +41,18 @@ const LogIn = () => {
             <div className="side2">
                 <div className="side2-content">
                     <TitleForm content="Iniciar Sesion"/>
-                    <form className="form form-login" onSubmit={ e => sendData(e) }>
+                    <form className="form form-login" onSubmit={ e => toggleSubmit(e) }>
                         <input
-                            name="username"
+                            name="userEmail"
                             type="email"
                             required
                             placeholder="Ingrese su Email"
                             className="input"
                             ref={ email }
-                            onChange={ captureName }
+                            onChange={ captureEmail }
                         />
                         {
-                            values.errorName && <Errors error={ values.errorName }/> 
+                            form.errorEmail && <Errors error={ form.errorEmail }/> 
                         }
                         <input
                             name="password"
@@ -50,9 +64,14 @@ const LogIn = () => {
                             ref={ password }
                         />
                         {
-                            values.errorPassword &&  <Errors error={ values.errorPassword }/>
+                            form.errorPassword &&  <Errors error={ form.errorPassword }/>
                         }
                         <div className="buttons">
+                            {
+                                error ? (
+                                    <Errors error={ error }/>
+                                ): null
+                            }
                             <button className="signup-btn">Entrar</button>
                             <button className="login-btn" onClick={() => history.push('/singup')}>Registrarse</button>
                         </div>
