@@ -38,6 +38,7 @@ exports.Login = (req,res) => {
 exports.logout = (req,res) => {
     req.user.deleteToken(req.token,(err,user)=>{
         if(err) return res.status(400).json({ok:false,error:err});
+        res.clearCookie("auth");
         res.sendStatus(200);
     });
 }
