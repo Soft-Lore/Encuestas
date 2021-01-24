@@ -1,40 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useHistory, withRouter } from 'react-router-dom'
 import { Nav } from '../molecules/index'
-import { MySurveys, ButtonAddSurvey, IconAdd } from '../styled/Home'
-import axios from 'axios'
+import { MySurveys, ButtonAddSurvey, IconAdd, CardContainer } from '../styled/Home'
+import Cookies from 'universal-cookie'
+
+const cookie = new Cookies()
 
 const Home = () => {
-    const [users, setUsers] = useState()
+    const history = useHistory()
+
     useEffect(() => {
-        axios.get('/api/users')
-            .then(resp => setUsers(Object(resp).data.users))
-    }, [])
+        const token = cookie.get('auth')
+        console.log(token);
+
+        if(token){
+            history.push('/')
+        }else {
+            history.push('/login')
+        }
+    
+    }, [history])
 
     return (
         <>
             <Nav />
             <MySurveys>
-                <ButtonAddSurvey secondary>
+                <ButtonAddSurvey>
                     Crear Nueva encuesta
                     <IconAdd />
                 </ButtonAddSurvey>
-                <div>
-                    <h1>Usuarios</h1>
-                    <ul>
-                        {
-                            users.map(m => <li>{m.name}</li>)
-                        }
-                    </ul>
-                    <h1>Id</h1>
-                    <ul>
-                        {
-                            users.map(m => <li>{m._id}</li>)
-                        }
-                    </ul>
-                </div>
+                <CardContainer>
+                    
+                </CardContainer>
             </MySurveys>
         </>
     )
 }
 
-export default Home
+export default withRouter(Home)

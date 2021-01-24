@@ -1,0 +1,50 @@
+.modal {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border: none;
+    outline: none;
+    left: 25%;
+    top: 25%;
+}
+
+.title-modal {
+    color: #222;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.5rem;
+}
+
+.btn-modal {
+    margin: 10px;
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Dosis', sans-serif;
+    border: 1px solid #919191;
+    font-size: 1rem;
+    box-shadow: 1px 1px 2px black;
+    outline: none;
+}
+
+.acepted {
+    background-color: #6C63FF;
+    border: 1px solid #666;
+    color: #fff;
+}
+
+.acepted:hover {
+    background-color: #635ece;
+}
+
+.cancel:hover {
+    background-color: #fff;
+}
+
+@media screen and (max-width: 600px){
+    .modal {
+        width: 85%;
+        left: 7.5%;
+    }
+}

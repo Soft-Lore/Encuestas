@@ -2,41 +2,30 @@ import { useState } from 'react'
 import { validateName, validatePassword } from '../Validates'
 
 
-const useLogIn = (userName, password) => {
-    let writeFinish;
-    const [values, setValues] = useState({
-        username: "",
+const useLogIn = (userEmail, password) => {
+    const [form, setForm] = useState({
+        userEmail: "",
         password: "",
-        errorName: "",
+        errorEmail: "",
         errorPassword: ""
     })
 
-    const captureName = () => {
-        clearTimeout(writeFinish)
-
-        writeFinish = setTimeout(() => {
-            setValues({
-                username: userName.current.value,
-                errorName: validateName(userName.current.value),
-                password: password.current.value,
-                errorPassword: ""
-            })
-        }, 100);
+    const captureEmail = () => {
+        setForm({
+            ...form,
+            userEmail: userEmail.current.value,
+            errorEmail: validateName(userEmail.current.value)
+        })
     }
     const capturePassword = () => {
-        clearTimeout(writeFinish)
-
-        writeFinish = setTimeout(() => {
-            setValues({
-                username: userName.current.value,
-                errorName: validateName(userName.current.value),
-                password: password.current.value,
-                errorPassword: validatePassword(password.current.value)
-            })
-        }, 100);
+        setForm({
+            ...form,
+            password: password.current.value,
+            errorPassword: validatePassword(password.current.value)
+        })
     }
 
-    return{ values, captureName, capturePassword }
+    return{ form, captureEmail, capturePassword }
 }
 
 export default useLogIn

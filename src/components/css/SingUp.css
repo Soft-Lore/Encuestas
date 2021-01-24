@@ -58,6 +58,10 @@
     outline: none;
 }
 
+.form input:focus {
+    background-color: none;
+}
+
 :focus::-webkit-input-placeholder { color: transparent; }
 
 .buttons button {
