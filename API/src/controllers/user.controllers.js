@@ -9,13 +9,13 @@ exports.GetOneUser = (req,res) => {
         if (Err) {
             return res.status(404).json({
                 ok:false,
-                message:'User not found',
+                message:'Usuario no encontrado',
                 error: Err
             });
         }
         return res.status(200).json({
             ok:true,
-            message:'User found successfully',
+            message:'Usuario encontrado correctamente',
             userDB
         });
     })
@@ -75,7 +75,7 @@ exports.PostUser = (req,res) => {
         if (user) {
             return res.status(400).json({
                 ok:false,
-                message :"email exits"
+                message :"Ese email ya existe!"
             });
         }
 
@@ -83,7 +83,7 @@ exports.PostUser = (req,res) => {
             if (err) {
                 return res.status(400).json({
                     ok:false,
-                    message:'Bad Request',
+                    message:'Solicitud Incorrecta!',
                 })
             }
 
@@ -105,13 +105,13 @@ exports.PutUser = (req,res) => {
         if (err) {
             return res.status(400).json({
                 ok:false,
-                message:'Bad Request User not found!',
+                message:'Usuario no encontrado ☠',
                 error: err
             });
         }
         return res.status(201).json({
             ok:true,
-            message:'User Updated successfully!',
+            message:'Usuario Actualizado! 😎😎',
             userDB
         });
     })
@@ -129,7 +129,7 @@ exports.DeleteUser = (req,res) => {
         if (err) {
             return res.status(400).json({
                 ok:false,
-                message:'Bad Request',
+                message:'Solicitud incorrecta al actualizar 😫😫',
                 error: err
             });
         }
@@ -138,14 +138,14 @@ exports.DeleteUser = (req,res) => {
             return res.status(404).json({
                 ok: false,
                 err: {
-                    message: 'User not found'
+                    message: 'Usuario no encontrado ☠',
                 }
             });
         }
 
         return res.status(201).json({
             ok:true,
-            message:'User Successfully Deleted',
+            message:'Usuario eliminado correctamente 🥳🥳',
             userDB
         });
     });
