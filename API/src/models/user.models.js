@@ -101,7 +101,7 @@ User.methods.comparepassword=function(password,cb){
 User.methods.generateToken = function (cb) {
     var user = this;
     var token = jwt.sign({
-        id:user._id.toHexString(),
+        _id:user._id.toHexString(),
         name: user.name,
         email:user.email
     },process.env.SECRET);
