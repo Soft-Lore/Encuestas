@@ -1,4 +1,3 @@
-const bcryptjs = require('bcryptjs');
 const User = require('../models/user.models');
 const cookieParser=require('cookie-parser');
 
@@ -19,7 +18,7 @@ exports.Login = (req,res) => {
                 if(!user) return res.json({isAuth : false, message : 'Error de autenticación, correo electrónico no encontrado 😥😣'});
 
                 user.comparepassword(req.body.password,(err,isMatch)=>{
-                    if(!isMatch) return res.json({ isAuth : false,message : "la contraseña no coincide 🥱🥱"});
+                    if(!isMatch) return res.json({ isAuth : false,message : "La contraseña no coincide 🥱🥱"});
 
                     user.generateToken((err,user)=>{
                         if(err) return res.status(400).send(err);

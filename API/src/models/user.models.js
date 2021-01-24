@@ -100,7 +100,11 @@ User.methods.comparepassword=function(password,cb){
 
 User.methods.generateToken = function (cb) {
     var user = this;
-    var token = jwt.sign(user._id.toHexString(),process.env.SECRET);
+    var token = jwt.sign({
+        id:user._id.toHexString(),
+        name: user.name,
+        email:user.email
+    },process.env.SECRET);
 
     user.token = token;
 
@@ -141,3 +145,5 @@ User.methods.toJSON = function () {
 User.plugin(MongooseUnique,{message:'{PATH} Must be unique'});
 
 module.exports = model('Users',User);
+
+

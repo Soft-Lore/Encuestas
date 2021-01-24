@@ -75,7 +75,7 @@ exports.PostUser = (req,res) => {
         if (user) {
             return res.status(400).json({
                 ok:false,
-                message :"Ese email ya existe!"
+                message :"Ese email ya existe! 😑😑"
             });
         }
 
@@ -83,7 +83,7 @@ exports.PostUser = (req,res) => {
             if (err) {
                 return res.status(400).json({
                     ok:false,
-                    message:'Solicitud Incorrecta!',
+                    message:'Solicitud Incorrecta! 😝😝',
                 })
             }
 
