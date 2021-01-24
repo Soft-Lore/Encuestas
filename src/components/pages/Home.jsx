@@ -18,20 +18,6 @@ const Home = () => {
                     Crear Nueva encuesta
                     <IconAdd />
                 </ButtonAddSurvey>
-                <div>
-                    <h1>Usuarios</h1>
-                    <ul>
-                        {
-                            users.map(m => <li>{m.name}</li>)
-                        }
-                    </ul>
-                    <h1>Id</h1>
-                    <ul>
-                        {
-                            users.map(m => <li>{m._id}</li>)
-                        }
-                    </ul>
-                </div>
             </MySurveys>
         </>
     )
