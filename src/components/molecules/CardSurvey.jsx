@@ -1,22 +1,38 @@
 import React from 'react'
-import { Cards, CardItem, CardHeader, CardButton, CardHeaders } from '../styled/index'
+import '../css/Card.css'
+import cardImage from '../../img/encuesta.svg'
 
-const CardSurvey = () => {
+const CardSurvey = ({ title, author, category, question }) => {
     return(
-        <Cards>
-            <CardHeaders>
-                <h1>Titulo Encuesta</h1>
-                <CardHeader src="https://www.cibagas.cl/wp-content/themes/options/images/skins/headers/full_width/header-purpleHaze.jpg" alt=""/>
-            </CardHeaders>
-            <CardItem two>
-                <p>Author: Steven Rocha</p>
-                <p>Categoria: Accion</p>
-                <p>N° Preguntas: 10</p>
-            </CardItem>
-            <CardButton>
+        <div className="card">
+            <button className="cardItem ">
+                <img src={ cardImage } alt="" className="imgCard"/>
+                <h1 className="cardTitle">{ title }</h1>
+            </button>
+            <div className="cardItem">
+                <p 
+                    className="cardParagraph"
+                >
+                    <span>Autor</span>
+                    { author }
+                </p>
+                <p 
+                    className="cardParagraph"
+                >
+                    <span>Categoria</span>
+                    { category }
+                </p>
+                <p 
+                    className="cardParagraph"
+                >
+                    <span>N° Preguntas</span> 
+                    { question }
+                </p>
+            </div>
+            <button className="cardItem cardButton">
                 Editar
-            </CardButton>
-        </Cards>
+            </button>
+        </div>
     )
 }
 

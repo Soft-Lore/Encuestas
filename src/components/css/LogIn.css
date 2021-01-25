@@ -1,0 +1,61 @@
+.containerForm {
+    position: relative;
+}
+
+.input {
+    position: relative;
+    display: block;
+    color: #1a1a1a;
+    font-family: 'Abel', sans-serif;
+    font-size: 1rem;
+    width: 270px;
+    height: 25px;
+    margin-top: 35px;
+    margin-left: 25px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.input::placeholder{
+    position: absolute;
+    bottom: 10px;
+    color: #1a1a1a;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1.1rem;
+    cursor: text;
+}
+
+.formPassword {
+    position: relative;
+}
+
+.containerForm::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    display: block;
+    width: 300px;
+    height: 30px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid black;
+    opacity: .8;
+}
+
+.viewPassword {
+    position: absolute;
+    width: 22px;
+    top: 15%;
+    right: 5px;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.formEmail::before {
+    background-image: url(../../img/user.svg);
+}
+
+.formPassword::before {
+    background-image: url(../../img/padlock.svg);
+}

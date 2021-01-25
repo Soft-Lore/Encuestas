@@ -19,9 +19,9 @@
     margin: 10px;
     width: 90px;
     height: 30px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     cursor: pointer;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
     border: 1px solid #919191;
     font-size: 1rem;
     box-shadow: 1px 1px 2px black;
@@ -29,9 +29,14 @@
 }
 
 .acepted {
-    background-color: #6C63FF;
+    background-color: #2f28a6;
     border: 1px solid #666;
     color: #fff;
+}
+
+.cancel {
+    color: #2f28a6;
+    border: 1px solid #2f28a6;
 }
 
 .acepted:hover {

@@ -44,7 +44,11 @@
     margin: 0;
 }
 
-.form input {
+.inputSingUp {
+    background-color: transparent;
+}
+
+.inputSingUp {
     font-family: 'Nunito', sans-serif;
     font-size: 18px;
     width: 300px;
@@ -54,7 +58,6 @@
     padding: 5px;
     border: none;
     border-bottom: solid 1px black;
-    background-color: transparent;
     outline: none;
 }
 
@@ -137,7 +140,7 @@
         font-size: 30px;
         margin-bottom: 60px;
     }
-    .form input {
+    .inputSingUp {
         width: 700px;
         margin-bottom: 60px;
         font-size: 30px;
@@ -175,29 +178,4 @@
     color: red;
     margin: 0;
     width: 320px;
-}
-
-/* LogIn */
-
-.input::placeholder{
-    color: #1a1a1a;
-    font-family: 'Inconsolata', monospace;
-    font-size: 1.1rem;
-}
-
-.form-login input {
-    color: #1a1a1a;
-    font-family: 'Abel', sans-serif;
-    font-size: 1rem;
-}
-
-.input {
-    border-bottom: 1px solid red;
-}
-
-@media screen and (min-width: 600px){
-    .form-login input,
-    .form-login button {
-        width: 325px;
-    }
 }

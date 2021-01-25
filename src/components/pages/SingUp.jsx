@@ -55,6 +55,7 @@ const SingUp = () => {
                             placeholder="Nombre de Usuario"
                             ref={usernameRef}
                             onChange={captureUsername}
+                            className="inputSingUp"
                         />
                         {values.errorUsername && <Errors error={values.errorUsername}/>}
                         <input
@@ -64,6 +65,7 @@ const SingUp = () => {
                             placeholder="Correo"
                             ref={emailRef}
                             onChange={captureEmail}
+                            className="inputSingUp"
                         />
                         {values.errorEmail && <Errors error={values.errorEmail}/>}
                         <input
@@ -73,6 +75,7 @@ const SingUp = () => {
                             placeholder="Contraseña"
                             ref={passwordRef}
                             onChange={capturePassword}
+                            className="inputSingUp"
                         />
                         {values.errorPassword && <Errors error={values.errorPassword}/>}
                         <div className="buttons">

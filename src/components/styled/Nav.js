@@ -27,7 +27,7 @@ export const NavButton = styled(NavLink)`
     text-decoration: none;
     margin-left: 10px;
     font-size: 1rem;
-
+    
     @media screen and (max-width: 600px){
         height: 25px;
         font-size: .9rem;
@@ -44,7 +44,7 @@ export const NavLogOut = styled.button`
     margin-right: 10px;
     height: 35px;
     outline: none;
-    border: none;
+    border: 1px solid #2f28a6;
 
     @media screen and (max-width: 600px){
         height: 30px;

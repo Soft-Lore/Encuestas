@@ -17,7 +17,7 @@ export const MySurveys = styled.section`
     margin-bottom: 40px;
     width: 85%;
     background-color: white;
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
     -webkit-box-shadow: 1px 6px 22px -10px rgba(33,37,41,1);
     -moz-box-shadow: 1px 6px 22px -10px rgba(33,37,41,1);
     box-shadow: 1px 6px 22px -10px rgba(33,37,41,1);
@@ -30,11 +30,28 @@ export const MySurveys = styled.section`
 export const ButtonAddSurvey = styled.button`
     padding: 7px 0;
     ${Button}
+    color:  #2f28a6;
     position: relative;
     display: block;
     margin: auto;
 `;
 
 export const CardContainer = styled.div`
-    width: 100%;
+    padding: 30px 0;
+    margin: auto;
+    width: 95%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
+    gap: 20px;
+    
+    @media screen and (max-width: 1150px){
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (max-width: 850px){
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width: 600px){
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;

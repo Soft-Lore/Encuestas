@@ -12,7 +12,7 @@ const Nav = () => {
         <>
         <NavBar>
             <SectionButtons>
-                <NavButton to="/home">
+                <NavButton to="/home" secondary="true">
                     Mis Encuestas
                 </NavButton>
                 <NavButton to="/surveys">
