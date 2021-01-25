@@ -29,3 +29,5 @@ app.use(cookieParser());
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/login.routes'));
 
+//exports Test
+module.exports = app;

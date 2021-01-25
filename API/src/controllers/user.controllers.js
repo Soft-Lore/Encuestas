@@ -99,6 +99,8 @@ exports.PostUser = (req,res) => {
                                 isAuth : true,
                                 User:doc
                             });
+
+                            res.redirect('/api/profile')
                         })
                     });
                     
