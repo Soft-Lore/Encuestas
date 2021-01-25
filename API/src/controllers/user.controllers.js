@@ -51,8 +51,6 @@ exports.GetAllUser = (req,res) => {
                 });
 
             });
-
-
         });
 
 }
@@ -61,6 +59,13 @@ exports.GetAllUser = (req,res) => {
 exports.PostUser = (req,res) => {
 
     let body = req.body;
+    let token=req.cookies.auth;
+
+
+    try {
+        if (!body.email || !body.name || !body.password) {
+            return res.json({ok:false,message:"Por favor revisa los campos 🙈🙉⚠"}).status(400);
+        }else{
     
     let newUser = new User({
         name:body.name,
@@ -68,26 +73,47 @@ exports.PostUser = (req,res) => {
         password:body.password,
         rols:body.role
     });
+        User.findByToken(token,(Err,user)=>{
+            if(Err) return res(Err);
 
-
-    User.findOne({email:newUser.email},(Err,user)=>{
-        
-        if (user) {
-            return res.json({ok:false, message :"Ese email ya existe! 😑😑"});
-        }
-
-        newUser.save((err,doc)=>{
-            if (err) {
-                return res.json({ok:false, message: 'Solicitud Incorrecta! 😝😝'})
-            }
-
-            return res.status(200).json({
-                ok:true,
-                User:doc
+            if(user) return res.status(400).json({
+                error :true,
+                message:"Ya se ha autentificado como usuario 🧐😐🤡"
             });
-        });
+
+            else{
+                User.findOne({email:newUser.email},(Err,user)=>{
         
-    });
+                    if (user) {
+                        return res.json({ok:false, message :"Ese email ya existe! 😑😑"});
+                    }
+            
+                    newUser.save((err,doc)=>{
+                        if (err) {
+                            return res.json({ok:false, message: 'Solicitud Incorrecta! 😝😝'})
+                        }
+            
+                        newUser.generateToken((err,user)=>{
+                            if(err) return res.status(400).send(err);
+                            res.cookie('auth',user.token).json({
+                                isAuth : true,
+                                User:doc
+                            });
+                        })
+                    });
+                    
+                });
+            }
+        })
+    
+    }
+    
+} catch (error) {
+        res.status(500).json({
+            ok:false,
+            error
+        });
+    }
 }
 
 
