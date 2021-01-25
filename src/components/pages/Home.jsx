@@ -11,7 +11,6 @@ const Home = () => {
 
     useEffect(() => {
         const token = cookie.get('auth')
-        console.log(token);
 
         if(token){
             history.push('/')

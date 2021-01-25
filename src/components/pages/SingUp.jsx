@@ -18,23 +18,22 @@ const SingUp = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         
-        await axios({
-            method: 'POST',
-            url: '/api/signup',
-            data: {
-                name: values.username,
-                email: values.email,
-                password: values.password
-            }
-        }).then(resp => {
-            return resp.data
-        }).then(resp => {
-            if(resp.ok) {
-                history.push('/login')
-            } else if(resp.ok === false) {
-                setError("perra")
-            }
-        })
+        const data= {
+            name: values.username,
+            email: values.email,
+            password: values.password
+        }
+
+        await axios.post('/api/signup', data)
+            .then(resp => {
+                return resp.data
+            })
+            .then(resp => {
+                if(resp.isAuth) 
+                    history.push('/');
+                else
+                    setError(resp.message);
+            })
     }
 
     return (

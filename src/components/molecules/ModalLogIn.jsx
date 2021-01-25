@@ -10,11 +10,13 @@ Modal.setAppElement('#root')
 
 const ModalLogIn = ({ state, toggle }) => {
     const history = useHistory()
+
     const logOut = async () => {
         const token = cookie.get('auth')
+        
         if(token){
             await axios.get('/api/logout')
-            .then(resp => console.log(resp))
+            .then(resp => resp)
             .catch(error => console.log(error))
 
             history.push('/login')
