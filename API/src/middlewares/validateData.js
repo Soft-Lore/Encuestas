@@ -1,12 +1,18 @@
-module.exports = (validator) => {
+module.exports = (validate) => {
   return (req, res, next) => {
-    const { error } = validator(req.body);
-    if (error) {
-      return res.status(400).json({
-        ok: false,
-        error: error.details[0].message,
-      });
+    const result = validate(req.body);
+
+    if( result.error ) {
+      return res.json({
+        message:"Por favor revisa los campos 🙈🙉⚠",
+        erros: result.error.details,
+      })}
+      else {
+        if(!req.value) {
+          req.value = {}
+        }
+        req.value['body'] = result.value;
+        next();
+      }
     }
-    next();
   };
-};
