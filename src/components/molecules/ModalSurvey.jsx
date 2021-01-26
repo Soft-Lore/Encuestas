@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Modal from 'react-modal'
 import '../css/ModalSurvey.css'
 import { BiAddToQueue, BiSend } from 'react-icons/bi'
@@ -7,21 +7,53 @@ import CreateInput from './CreateInput'
 Modal.setAppElement('#root')
 
 const ModalSurvey = ({ state, toggle }) => {
-    const [number, setNumber] = useState(1);
-    const [option, setOption] = useState(1);
+    const inputTitle = useRef()
+    const inputQuestion = useRef()
+    const inputOption = useRef()
+    const [options, setOptions] = useState([])
+    const [survey, setSurvey] = useState({
+        title: '',
+        questions: []
+    })
 
     const inputHandle = (e) => {
         e.preventDefault();
-        setNumber(number + 1);
+
+        const name = inputQuestion.current.value
+
+        setSurvey({
+            title: inputTitle.current.value,
+            questions: [
+                ...survey.questions,
+                {
+                    name,
+                    options
+                }
+            ]
+        })
+
+        inputQuestion.current.value = "";
+        setOptions([]);
     }
 
     const optionHandle = (e) => {
         e.preventDefault();
-        setOption(option + 1)
+
+        const name = inputOption.current.value
+
+        setOptions([
+            ...options,
+            {
+                name
+            }
+        ])
+        inputOption.current.value = "";
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log(survey);
     }
 
     return (
@@ -69,6 +101,7 @@ const ModalSurvey = ({ state, toggle }) => {
                             placeholder="Titulo de encuesta"
                             id="title"
                             className="title"
+                            ref={ inputTitle }
                         />
                     </div>
                     <div className="tools-buttons">
@@ -82,12 +115,37 @@ const ModalSurvey = ({ state, toggle }) => {
                 </div>
                 <div className="survey-body">
                     <CreateInput
-                        count={ number }
                         optionHandle={ optionHandle }
-                        option={ option }
-                    />
+                        option={ inputOption }
+                        question={ inputQuestion }
+                        key="one"
+                    />  
                 </div>
             </form>
+            <div className="survey-body">
+                    {
+                        survey && (
+                            survey.questions.map((resp, index) =><div className="survey" key={ index * 20}>
+                                 <h1 
+                                    key={ index }
+                                >
+                                    {resp.name}
+                                 </h1>
+                                <ul>
+                                   {
+                                       resp.options.map((response, i) =>  <li key={ i }>
+                                           <p
+                                                key={ i }
+                                            >
+                                            {response.name}
+                                           </p>
+                                    </li>)
+                                   }
+                                </ul>
+                            </div>)
+                        )
+                    }
+                </div>      
         </Modal>
     )
 }
