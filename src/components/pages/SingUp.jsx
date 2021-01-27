@@ -6,12 +6,15 @@ import { Errors, TitleForm } from '../atom/index'
 import '../css/SingUp.css'
 import { SideImage } from '../molecules/index'
 import axios from 'axios'
+import viewImage from '../../img/view.svg'
+import { viewPassword } from '../functions/index'
 
 const SingUp = () => {
     const history = useHistory();
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
+    let active = false;
     const [error, setError] = useState();
     const { values, captureUsername, captureEmail, capturePassword } = useForm(usernameRef, emailRef, passwordRef);
 
@@ -48,35 +51,47 @@ const SingUp = () => {
                                 <Errors error={ error }/>
                             ) : null
                         }
-                        <input
-                            name="username"
-                            type="text"
-                            id="username"
-                            placeholder="Nombre de Usuario"
-                            ref={usernameRef}
-                            onChange={captureUsername}
-                            className="inputSingUp"
-                        />
+                        <div className="username-content containerSignUp">
+                            <input
+                                name="username"
+                                type="text"
+                                id="username"
+                                placeholder="Nombre de Usuario"
+                                ref={usernameRef}
+                                onChange={captureUsername}
+                                className="inputSingUp"
+                            />
+                        </div>
                         {values.errorUsername && <Errors error={values.errorUsername}/>}
-                        <input
-                            name="email"
-                            type="email"
-                            id="email"
-                            placeholder="Correo"
-                            ref={emailRef}
-                            onChange={captureEmail}
-                            className="inputSingUp"
-                        />
+                        <div className="email-content containerSignUp">
+                            <input
+                                name="email"
+                                type="email"
+                                id="email"
+                                placeholder="Correo"
+                                ref={emailRef}
+                                onChange={captureEmail}
+                                className="inputSingUp"
+                            />
+                        </div>
                         {values.errorEmail && <Errors error={values.errorEmail}/>}
-                        <input
-                            name="password"
-                            type="password"
-                            id="password"
-                            placeholder="Contraseña"
-                            ref={passwordRef}
-                            onChange={capturePassword}
-                            className="inputSingUp"
-                        />
+                        <div className="password-content containerSignUp">
+                            <input
+                                name="password"
+                                type="password"
+                                id="password"
+                                placeholder="Contraseña"
+                                ref={passwordRef}
+                                onChange={capturePassword}
+                                className="inputSingUp"
+                            />
+                            <img 
+                                src={ viewImage } 
+                                alt="Ver"
+                                className="viewPasswordSignUp"
+                                onClick={ () => active = viewPassword(active, passwordRef) }
+                            />
+                        </div>
                         {values.errorPassword && <Errors error={values.errorPassword}/>}
                         <div className="buttons">
                             <button className="signup-btn">Registrarse</button>
