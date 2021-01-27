@@ -95,12 +95,10 @@ exports.PostUser = (req,res) => {
             
                         newUser.generateToken((err,user)=>{
                             if(err) return res.status(400).send(err);
-                            res.cookie('auth',user.token).json({
+                            return res.cookie('auth',user.token).json({
                                 isAuth : true,
                                 User:doc
                             });
-
-                            res.redirect('/api/profile')
                         })
                     });
                     
