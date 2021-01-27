@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import '../css/ModalSurvey.css'
 import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import CreateInput from './CreateInput'
+import { Errors } from '../atom/index'
 
 Modal.setAppElement('#root')
 
@@ -11,6 +12,7 @@ const ModalSurvey = ({ state, toggle }) => {
     const inputQuestion = useRef()
     const inputOption = useRef()
     const [options, setOptions] = useState([])
+    const [error, setError] = useState()
     const [survey, setSurvey] = useState({
         title: '',
         questions: []
@@ -21,19 +23,29 @@ const ModalSurvey = ({ state, toggle }) => {
 
         const name = inputQuestion.current.value
 
-        setSurvey({
-            title: inputTitle.current.value,
-            questions: [
-                ...survey.questions,
-                {
-                    name,
-                    options
-                }
-            ]
-        })
-
-        inputQuestion.current.value = "";
-        setOptions([]);
+        if(!inputTitle.current.value && !name) {
+            setError('Los campos no pueden estar vacios')
+        } else if(!inputTitle.current.value) {
+            setError('Añada un titulo a la encuesta')
+        } else if(!name) {
+            setError('Añada una pregunta a la encuesta')
+        } else if(options.length < 2 || options.length === 0) {
+            setError('Añade 2 o mas opciones')
+        } else {
+            setSurvey({
+                title: inputTitle.current.value,
+                questions: [
+                    ...survey.questions,
+                    {
+                        name,
+                        options
+                    }
+                ]
+            })
+    
+            inputQuestion.current.value = "";
+            setOptions([]);
+        }
     }
 
     const optionHandle = (e) => {
@@ -41,19 +53,28 @@ const ModalSurvey = ({ state, toggle }) => {
 
         const name = inputOption.current.value
 
-        setOptions([
-            ...options,
-            {
-                name
-            }
-        ])
-        inputOption.current.value = "";
+        if(!name) {
+            setError('Añade opciones a tus preguntas')
+        } else {
+            setOptions([
+                ...options,
+                {
+                    name
+                }
+            ])
+            inputOption.current.value = "";
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(survey);
+        if(!survey.questions || !survey.title) {
+            setError('Asegurate de haber llenado correctamente los campos')
+        } else {  
+            console.log(survey);
+            setError()
+        }
     }
 
     return (
@@ -79,7 +100,7 @@ const ModalSurvey = ({ state, toggle }) => {
                         outline: 'none',
                         width: '50rem',
                         height: 'auto',
-                        maxHeight: '488px',
+                        maxHeight: '500px',
                         boxShadow: '0 0 34px 0 rgba(0, 0, 0, 0.24)',
                         overflowY: 'auto',
                         position: 'relative'
@@ -105,14 +126,17 @@ const ModalSurvey = ({ state, toggle }) => {
                         />
                     </div>
                     <div className="tools-buttons">
-                        <button className="add btn">
-                            <BiAddToQueue className="icon" onClick={inputHandle}/>
+                        <button className="add btn" onClick={inputHandle}>
+                            <BiAddToQueue className="icon"/>
                         </button>
                         <button className="send btn">
                             <BiSend className="icon"/>
                         </button>
                     </div>
                 </div>
+                {
+                    error && <Errors error={error}/>
+                }
                 <div className="survey-body">
                     <CreateInput
                         optionHandle={ optionHandle }
