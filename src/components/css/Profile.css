@@ -1,0 +1,104 @@
+.profile-container {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #fafafa;
+}
+
+.profile {
+    width: 30%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #888;
+}
+
+.profile-title {
+    text-align: center;
+    margin: 10px;
+    font-size: 1.4rem;
+    color: #555;
+}
+
+.profile-header {
+    width: 100%;
+
+    border-bottom: 1px solid #888;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-Password {
+    margin-top: 60px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.lbl,
+.inputText {
+    margin: auto;
+    width: 85%;
+    margin-top: 5px;
+}
+
+.inputText {
+    padding: 7px 0;
+    width: calc(85% - 15px);
+    border: none;
+    border: 1px solid #777;
+    padding-left: 15px;
+}
+
+.inputText,
+.buttonProfile {
+    border-radius: 5px;
+    outline: none;
+}
+
+.buttonProfile {
+    cursor: pointer;
+    width: 85%;
+    padding: 8px 0;
+    transition: background-color .2s ease-in;
+    color: white;
+    margin-top: 15px ;
+}
+
+.sendData {
+    background-color: #2f28a6;
+}
+
+.deleteAccount {
+    background-color: red;
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 600px){
+    .buttonProfile:hover {
+        background-color: #272286;
+    
+    }
+}
+
+@media screen and (max-width: 940px){
+    .profile {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .profile {
+        width: 90%;
+    }
+}

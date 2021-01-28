@@ -11,7 +11,7 @@ export const validatePassword = (password) => {
         return "";
     }
      else if(password.length < 5){
-        return "Su contraseña debe tener como minimo 6 caracteres"
+        return "Su contraseña/nombre debe tener como minimo 6 caracteres"
     }
     else if(!password || password.length === 0){
         return "Campo vacio"

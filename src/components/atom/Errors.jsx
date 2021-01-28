@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Errors = ({ error }) => {
+const Errors = ({ error, secondary }) => {
     return(
-        <p className="error">{ error }</p>
+        <p className={secondary === "true" ?  "error error-profile" : "error"}>{ error }</p>
     )
 }
 

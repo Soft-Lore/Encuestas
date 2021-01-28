@@ -179,3 +179,10 @@
     margin: 0;
     width: 320px;
 }
+
+.error-profile {
+    text-align: center;
+    width: 100%;
+    font-size: .8rem;
+    padding-bottom: 10px;
+}

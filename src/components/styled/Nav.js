@@ -39,14 +39,56 @@ export const SectionButtons = styled.section`
     ${flex};
 `;
 
-export const NavLogOut = styled.button`
+export const SectionLogOut = styled.div`
+    position: relative;
+    top: 0;
+`;
+
+export const ContainerOptions = styled.div`
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+
+    &:hover ~ ul {
+        display: block;
+    }
+`;
+
+export const NameUser = styled.p`
+    margin-right: 20px;
+`;
+
+export const ImgUser = styled.img`
+    width: 30px;
+`;
+
+export const NavOptions = styled.div`
     ${Button};
+    padding-top: 5px;
+    text-align: center;
+    width: 90px;
     margin-right: 10px;
-    height: 35px;
+    height: 25px;
     outline: none;
     border: 1px solid #2f28a6;
 
     @media screen and (max-width: 600px){
         height: 30px;
+    }
+`;
+
+export const LogOutOptions = styled.ul`
+    position: absolute;
+    display: none;
+    top: 60%;
+    left: -80px;
+    list-style: none;
+
+    &:hover {
+        display: block;
+    }
+
+    & li {
+        margin-top: 5px;
     }
 `;
