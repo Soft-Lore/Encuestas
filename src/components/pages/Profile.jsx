@@ -2,6 +2,7 @@ import React from 'react'
 import '../css/Profile.css'
 import { useProfile } from '../hooks/index'
 import { Errors } from '../atom/index'
+import { Nav } from '../molecules/index'
 
 const Profile = () => {
     const [userdates, toggleSubmit,toggleInput, error, deleteAccount] = useProfile()
@@ -9,6 +10,7 @@ const Profile = () => {
 
     return(
        <>
+       <Nav />
         {
             userdates && (
                 <div className="profile-container">

@@ -9,7 +9,7 @@ import '../css/LogIn.css'
 import viewImage from '../../img/view.svg'
 import { viewPassword } from '../functions/index'
 
-const LogIn = () => {
+const LogIn = (props) => {
     const history = useHistory()
     const email = useRef()
     const password = useRef()
@@ -33,7 +33,8 @@ const LogIn = () => {
             })
             .then(response => {
                 if(response.isAuth){
-                    history.push('/')
+                    props.handle();
+                    history.push('/');
                 }else {
                     if(!response.isAuth){
                         setError(response.message)

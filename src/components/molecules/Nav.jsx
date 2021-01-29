@@ -27,7 +27,7 @@ const Nav = () => {
         <>
         <NavBar>
             <SectionButtons>
-                <NavButton to="/home" secondary="true">
+                <NavButton to="/" secondary="true">
                     Mis Encuestas
                 </NavButton>
                 <NavButton to="/surveys">

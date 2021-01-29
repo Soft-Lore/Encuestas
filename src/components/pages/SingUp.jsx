@@ -9,7 +9,7 @@ import axios from 'axios'
 import viewImage from '../../img/view.svg'
 import { viewPassword } from '../functions/index'
 
-const SingUp = () => {
+const SingUp = (props) => {
     const history = useHistory();
     const usernameRef = useRef();
     const emailRef = useRef();
@@ -32,8 +32,10 @@ const SingUp = () => {
                 return resp.data
             })
             .then(resp => {
-                if(resp.isAuth) 
+                if(resp.isAuth){
+                    props.handle();
                     history.push('/');
+                }
                 else
                     setError(resp.message);
             })
