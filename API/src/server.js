@@ -28,6 +28,7 @@ app.use(cookieParser());
 //routes
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/login.routes'));
+app.use(require('./routes/poll.routes'));
 
 //exports Test
 module.exports = app;
