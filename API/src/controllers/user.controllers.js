@@ -2,6 +2,8 @@ const _ = require('underscore');
 
 const User = require('../models/user.models');
 
+const bcrypjs = require('bcryptjs');
+
 exports.GetOneUser = (req,res) => {
     let id = req.params.id;
 
@@ -117,35 +119,45 @@ exports.PostUser = (req,res) => {
 }
 
 
-exports.PutUser = (req,res) => {
+exports.PutUser = async (req,res) => {
     let id = req.params.id;
-    let body = _.pick(req.body, ['name', 'email', 'password', 'state', 'rols']);
+    let update = req.body;
 
-    User.findByIdAndUpdate(id,body,{new:true,runValidators:true},(err,userDB)=>{
-        if (err) {
-            return res.status(400).json({
-                ok:false,
-                message:'Usuario no encontrado ☠',
-                error: err
+    const salt = await bcrypjs.genSaltSync(10);
+    req.body.password = await bcrypjs.hash(req.body.password,salt);
+
+    try {
+        User.findByIdAndUpdate(id,update, { new: true }, (err, usuarioDB) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+            
+            return req.user.deleteToken(req.token,(err,user)=>{
+                if(err) return res.status(400).json({ok:false,error:err});
+                res.clearCookie("auth");
+                res.sendStatus(200);
             });
-        }
-        return res.status(201).json({
-            ok:true,
-            message:'Usuario Actualizado! 😎😎',
-            userDB
         });
-    })
-}
+    } catch (error) {
+        res.json({
+            ok:false,
+            error:error
+        });
+    }
+    
+};
+
+
 
 
 exports.DeleteUser = (req,res) => {
     let id = req.params.id;
 
-    let changedState = {
-        state: false
-    };
-
-    User.findByIdAndUpdate(id,changedState,{new:true},(err,userDB)=>{
+ 
+    User.findOneAndRemove(id,(err,userDB)=>{
         if (err) {
             return res.status(400).json({
                 ok:false,
