@@ -1,27 +1,31 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import Modal from 'react-modal'
 import '../css/ModalSurvey.css'
 import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import CreateInput from './CreateInput'
 import { Errors } from '../atom/index'
+import { Token } from '../tokenProvider'
+import axios from 'axios'
 
 Modal.setAppElement('#root')
 
 const ModalSurvey = ({ state, toggle }) => {
+    const data = useContext(Token);
     const inputTitle = useRef()
     const inputQuestion = useRef()
     const inputOption = useRef()
     const [options, setOptions] = useState([])
     const [error, setError] = useState()
     const [survey, setSurvey] = useState({
-        title: '',
+        created_by: "",
+        description: '',
         questions: []
     })
 
     const inputHandle = (e) => {
         e.preventDefault();
 
-        const name = inputQuestion.current.value
+        const name = inputQuestion.current.value;
 
         if(!inputTitle.current.value && !name) {
             setError('Los campos no pueden estar vacios')
@@ -33,7 +37,8 @@ const ModalSurvey = ({ state, toggle }) => {
             setError('Añade 2 o mas opciones')
         } else {
             setSurvey({
-                title: inputTitle.current.value,
+                created_by: data._id,
+                description: inputTitle.current.value,
                 questions: [
                     ...survey.questions,
                     {
@@ -58,21 +63,25 @@ const ModalSurvey = ({ state, toggle }) => {
         } else {
             setOptions([
                 ...options,
-                {
-                    name
-                }
+                name
             ])
             inputOption.current.value = "";
         }
     }
 
+    const postSurvey = async (data) => {
+        await axios.post('/api/poll', data)
+            .then(resp => console.log(resp))
+            .catch(error => console.log(error))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(!survey.questions || !survey.title) {
+        if(!survey.questions || !survey.description) {
             setError('Asegurate de haber llenado correctamente los campos')
         } else {  
-            console.log(survey);
+            postSurvey(survey)
             setError()
         }
     }
@@ -161,7 +170,7 @@ const ModalSurvey = ({ state, toggle }) => {
                                            <p
                                                 key={ i }
                                             >
-                                            {response.name}
+                                            {response}
                                            </p>
                                     </li>)
                                    }

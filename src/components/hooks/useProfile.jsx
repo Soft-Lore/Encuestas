@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react'
-import cookies from 'universal-cookie'
+import { useState, useEffect, useContext } from 'react'
 import { validateName, validatePassword } from '../Validates'
 import axios from 'axios';
-
-const cookie = new cookies()
-
-//Desencriptar token
-const parseJwt = (token) => {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace('-', '+').replace('_', '/')
-    return JSON.parse(window.atob(base64));
-}
+import { useHistory } from 'react-router-dom'
+import { Token } from '../tokenProvider'
 
 const useProfile = () => {
-    const userData = parseJwt(cookie.get('auth'))
+    const history = useHistory()
+    const userData = useContext(Token);
     const [token, setToken] = useState({
         name: '',
         email: '',
@@ -28,11 +21,13 @@ const useProfile = () => {
     
     useEffect(() => {
         const initialState = async () => {
-            await setToken({
-                ...token,
-                name: userData.name,
-                email: userData.email
-            })
+            userData && (
+                await setToken({
+                    ...token,
+                    name: userData.name,
+                    email: userData.email
+                })
+            )
         }
 
         initialState()
@@ -76,13 +71,19 @@ const useProfile = () => {
     }
 
     const updateProfile = async (name, email, password) => {
-        await axios.put(`/api/users/${userData._id}`, {
-            name: name,
-            email: email,
-            password: password
-        })
-            .then(resp => console.log(resp))
-            .catch(error => console.log(error))
+        if(password.length < 6){
+            setError({
+                name: "Amigo, debe ingresar su contraseña antigua o tu nueva contraseña. No puedes dejar este campo vacio"
+            })
+        }else {
+            await axios.put(`/api/users/${userData._id}`, {
+                name: name,
+                email: email,
+                password: password
+            })
+                .then(resp => resp.data === "OK" ? history.push('/login') : null)
+                .catch(error => console.log(error))
+        }
     }
 
     const deleteAccount = async () => {

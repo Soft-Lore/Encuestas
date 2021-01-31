@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import '../css/Profile.css'
 import { useProfile } from '../hooks/index'
 import { Errors } from '../atom/index'
 import { Nav } from '../molecules/index'
+import viewImage from '../../img/view.svg'
+import { viewPassword } from '../functions/index'
 
 const Profile = () => {
     const [userdates, toggleSubmit,toggleInput, error, deleteAccount] = useProfile()
     const errors = error.name;
+    const password = useRef()
+    const confPassword = useRef();
+    let active = false;
 
     return(
        <>
@@ -63,25 +68,43 @@ const Profile = () => {
                                 >
                                     Nueva contraseña
                                 </label>
-                                <input 
-                                    className="inputText input-newPassword"
-                                    type="password"
-                                    onChange={ e => toggleInput(e) }
-                                    autoComplete="off"
-                                    name="newPassword"
-                                />
+                                <div className="containerInputPassword">
+                                    <input 
+                                        className="inputText input-newPassword"
+                                        type="password"
+                                        onChange={ e => toggleInput(e) }
+                                        autoComplete="off"
+                                        name="newPassword"
+                                        ref={ confPassword }
+                                    />
+                                    <img 
+                                        src={ viewImage } 
+                                        alt="Ver"
+                                        className="viewPassword viewPasswordProfile"
+                                        onClick={ () => active = viewPassword(active, confPassword) }
+                                    />
+                                </div>
                                 <label 
                                     className="lbl lbl-confirmPassword"
                                 >
                                     Confirmar nueva contraseña
                                 </label>
-                                <input 
-                                    className="inputText input-confirmPassword"
-                                    type="password"
-                                    name="password"
-                                    onChange={ e => toggleInput(e) }
-                                    autoComplete="off"
-                                />
+                                <div className="containerInputPassword">
+                                    <input
+                                        className="inputText input-confirmPassword"
+                                        type="password"
+                                        name="password"
+                                        onChange={ e => toggleInput(e) }
+                                        autoComplete="off"
+                                        ref={ password }
+                                    />
+                                    <img 
+                                        src={ viewImage } 
+                                        alt="Ver"
+                                        className="viewPassword viewPasswordProfile"
+                                        onClick={ () => active = viewPassword(active, password) }
+                                    />
+                                </div>
                             </section>
                             <button 
                                 type="submit" 

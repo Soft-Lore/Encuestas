@@ -5,10 +5,10 @@ import cardImage from '../../img/encuesta.svg'
 const CardSurvey = ({ title, author, category, question }) => {
     return(
         <div className="card">
-            <button className="cardItem ">
+            <div className="cardItem ">
                 <img src={ cardImage } alt="" className="imgCard"/>
                 <h1 className="cardTitle">{ title }</h1>
-            </button>
+            </div>
             <div className="cardItem">
                 <p 
                     className="cardParagraph"
