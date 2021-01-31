@@ -1,6 +1,21 @@
+import { useState } from 'react'
+import { Nav } from '../molecules/index'
+import { MySurveys, CardContainer } from '../styled/Home'
+import { CardSurvey } from '../molecules/index'
+
 const Surveys = () => {
+
     return (
-        <h1>Survey</h1>
+        <>
+            <Nav />
+            <MySurveys>
+                <CardContainer>
+                    <CardSurvey
+                        buttonTitle={ "Ver" }
+                    />
+                </CardContainer>
+            </MySurveys>
+        </>
     )
 }
 

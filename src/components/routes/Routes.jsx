@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, LogIn, SingUp, MySurveys, Surveys, ViewSurveys, Footer, Error, Profile } from '../pages/index'
+import { Home, LogIn, SingUp, Surveys, ViewSurveys, Footer, Error, Profile } from '../pages/index'
 import ProtectedRoutes from '../../ProtectedRoute'
 import Cookies from 'universal-cookie'
 
@@ -51,12 +51,6 @@ const Routes = () => {
                     exact 
                     path="/surveys" 
                     component={ Surveys } 
-                    isAuth={auth}
-                />
-                <ProtectedRoutes 
-                    exact 
-                    path="/mysurveys" 
-                    component={ MySurveys } 
                     isAuth={auth}
                 />
                 <Route component={ Error } />
