@@ -1,15 +1,19 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState } from 'react'
 import { validateName, validatePassword } from '../Validates'
-import axios from 'axios';
 import { useHistory } from 'react-router-dom'
-import { Token } from '../tokenProvider'
+import { parseJwt } from '../functions/decryptToken'
+import axios from 'axios';
+import cookies from 'universal-cookie'
+
+const cookie = new cookies();
 
 const useProfile = () => {
     const history = useHistory()
-    const userData = useContext(Token);
+    const data = cookie.get('auth');
+    const userData = parseJwt(data);
     const [token, setToken] = useState({
-        name: '',
-        email: '',
+        name: userData.name,
+        email: userData.email,
         password: ''
     })
 
@@ -19,20 +23,6 @@ const useProfile = () => {
         name: ''
     })
     
-    useEffect(() => {
-        const initialState = async () => {
-            userData && (
-                await setToken({
-                    ...token,
-                    name: userData.name,
-                    email: userData.email
-                })
-            )
-        }
-
-        initialState()
-    }, [])
-
     const validateError = (name, element) => {
         if(name === 'name'){
             setError({
