@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../css/Card.css'
 import cardImage from '../../img/encuesta.svg'
+import Modal from '../molecules/ModalLogIn'
 
-const CardSurvey = ({ title, author, category, question }) => {
+const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
+    const [active, setActive] = useState();
+
+    const toggleDelete = async () => {
+        setActive(!active);
+    }
+
+    const deleteSurvey = () => {
+        console.log('Encuesta borrada')
+    }
+
     return(
         <div className="card">
             <div className="cardItem ">
@@ -29,9 +40,15 @@ const CardSurvey = ({ title, author, category, question }) => {
                     { question }
                 </p>
             </div>
-            <button className="cardItem cardButton">
-                Editar
+            <button className="cardItem cardButton" onClick={toggleDelete}>
+                { buttonTitle }
             </button>
+            <Modal 
+                state={ active }
+                toggle={ toggleDelete }
+                title={ "Desea Eliminar la Encuesta?" }
+                work={ deleteSurvey }
+            />
         </div>
     )
 }

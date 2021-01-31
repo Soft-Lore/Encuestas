@@ -4,6 +4,9 @@ import Modal from './ModalLogIn'
 import axios from 'axios'
 import user from '../../img/user1.svg'
 import { useHistory } from 'react-router-dom'
+import Cookies from 'universal-cookie'
+
+const cookie = new Cookies()
 
 const Nav = () => {
     const history = useHistory()
@@ -22,6 +25,18 @@ const Nav = () => {
 
         getProfile();
     }, [])
+
+    const logOut = async () => {
+        const token = cookie.get('auth')
+        
+        if(token){
+            await axios.get('/api/logout')
+            .then(resp => resp)
+            .catch(error => console.log(error))
+
+            history.push('/login')
+        } 
+    }
     
     return(
         <>
@@ -58,6 +73,8 @@ const Nav = () => {
         <Modal 
             state={ active } 
             toggle={ toggleLogOut }
+            title={ "Desea Cerrar la Sesion" }
+            work={ logOut }
         />
         </>
     )

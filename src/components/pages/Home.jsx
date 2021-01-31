@@ -24,6 +24,7 @@ const Home = () => {
                         author="Moises Eliel"
                         category="Gustos"
                         question="5"
+                        buttonTitle={ "Eliminar" }
                     />
                 </CardContainer>
             </MySurveys>
