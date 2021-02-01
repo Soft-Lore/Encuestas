@@ -5,11 +5,13 @@ import { CardSurvey } from '../molecules/index'
 import axios from 'axios'
 import '../css/Surveys.css'
 import Pagination from 'components/molecules/Pagination'
+import { useHistory } from 'react-router-dom'
 
 const Surveys = () => {
     const [surveyCard, setSurveyCard] = useState();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0)
+    const history = useHistory();
     const surveysPerPage = 16;
 
     useEffect(() => {
@@ -24,7 +26,10 @@ const Surveys = () => {
         getSurvey();
     }, [])
 
-    console.log(totalPages);
+    const toggleSurvey = id => {
+        history.push(`/viewsurvey/${id}`)
+    }
+    // console.log(totalPages);
 
     const lastIndex = page * surveysPerPage;
     const firstIndex = lastIndex - surveysPerPage;
@@ -42,10 +47,12 @@ const Surveys = () => {
                                 currentSurveys.map((response, index) =>
                                     <div className="surveys" key={index}>
                                         <CardSurvey
+                                            id={ response._id }
                                             title={response.description}
                                             author
                                             question={response.questions.length}
                                             buttonTitle={ "Ver" }
+                                            toggleSurvey={ toggleSurvey }
                                         />
                                     </div>
                                 )

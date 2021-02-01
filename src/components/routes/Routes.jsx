@@ -29,6 +29,11 @@ const Routes = () => {
                     handle={ toggleLogIn } 
                     render={ props => <SingUp { ...props } handle={ toggleLogIn } /> } 
                 />
+                <Route 
+                    exact 
+                    path="/viewsurvey/:_id" 
+                    component={ auth ? ViewSurveys : Pagina404 } 
+                />
                 <ProtectedRoutes 
                     exact 
                     path="/" 
@@ -39,12 +44,6 @@ const Routes = () => {
                     exact 
                     path="/profile" 
                     component={ Profile }
-                    isAuth={auth}
-                />
-                <ProtectedRoutes 
-                    exact 
-                    path="/viewsurvey" 
-                    component={ ViewSurveys } 
                     isAuth={auth}
                 />
                 <ProtectedRoutes 

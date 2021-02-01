@@ -1,103 +1,18 @@
 import React, { useState } from 'react'
 import { Nav } from '../molecules/index'
 import { Errors } from '../atom/index'
+import { descript } from '../functions/index'
+import { useSurvey } from '../hooks/index'
+import cookies from 'universal-cookie'
 import '../css/ViewSurvey.css'
 
-const survey = {
-    title: 'Encuesta 1',
-    questions: [
-        {
-            name: '¿Color favorito?',
-            options: [
-                {
-                    name: 'red'
-                },
-                {
-                    name: 'blue'
-                }
-            ]
-        },
-        {
-            name: '¿Asignatura favorita?',
-            options: [
-                {
-                    name: 'matematicas'
-                },
-                {
-                    name: 'español'
-                },
-                {
-                    name: 'ciencias naturales'
-                }
-            ]
-        },
-        {
-            name: '¿Convivencia?',
-            options: [
-                {
-                    name: 'Zona rural'
-                },
-                {
-                    name: 'Zona urbana'
-                }
-            ]
-        },
-    ]
-}
+const cookie = new cookies();
 
-
-const ViewSurveys = () => {
-    const [result, setResult] = useState([])
+const ViewSurveys = ({ match }) => {
+    const id = match.params._id;
+    const profile = descript(cookie.get('auth'))
+    const [survey, toggleOptions, toggleSubmit] = useSurvey(id, profile);
     const [error, setError] = useState('')
-
-    const validateOption = (name) => {
-        const copiaState = result.filter(resp => resp.name !== name);
-        const isName = result.find(resp => resp.name === name)
-        return [copiaState, isName];
-    }
-
-    const setOption = (name, option) => {
-        let [copy, isName] = validateOption(name)
-        
-        if(copy && isName !== undefined){
-            const container = document.getElementById(isName.option + "Item").parentNode;
-            container.classList.remove('repeat');
-            
-            setResult([
-                ...copy,
-                {
-                    name: name,
-                    option: option
-                }
-            ])
-        } else{
-            setResult([
-                ...result,
-                {
-                    name: name,
-                    option: option
-                }
-            ])
-        }
-    }
-
-    const toggleOptions = ({ target }) => {
-        const option = target.getAttribute('name');
-        const name = target.getAttribute('data-question')
-        const container = target.parentNode;
-
-        setOption(name, option);
-        container.classList.add('repeat');
-    }
-
-    const toggleSubmit = (e) => {
-        e.preventDefault();
-        if(result.length < survey.questions.length){
-            return 'Complete la encuesta 😪😫';
-        } else {
-            console.log(result);
-        }
-    }
 
     return (
         <>
@@ -117,7 +32,7 @@ const ViewSurveys = () => {
                                     <Errors error={ error }/>
                                 )
                             }
-                            {survey.questions.map((resp, index) =>
+                            {survey.Poll.questions.map((resp, index) =>
                                 <div
                                     className="survey"
                                     key={ index * 20}
@@ -134,13 +49,13 @@ const ViewSurveys = () => {
                                         >
                                             <p
                                                 key={ i }
-                                                name={response.name}
-                                                data-question={resp.name}
+                                                name={response._id}
+                                                data-question={resp._id}
                                                 onClick={ e => toggleOptions(e) }
                                                 className="paragraph-survey"
-                                                id={response.name + "Item"}
+                                                id={response._id + "Item"}
                                             >
-                                                {response.name}
+                                                {response.option}
                                             </p>
                                         </li>)
                                     }
