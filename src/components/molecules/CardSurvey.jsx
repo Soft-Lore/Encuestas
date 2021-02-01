@@ -3,7 +3,7 @@ import '../css/Card.css'
 import cardImage from '../../img/encuesta.svg'
 import Modal from '../molecules/ModalLogIn'
 
-const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
+const CardSurvey = ({ title, author, question, buttonTitle }) => {
     const [active, setActive] = useState();
 
     const toggleDelete = async () => {
@@ -26,12 +26,6 @@ const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
                 >
                     <span>Autor</span>
                     { author }
-                </p>
-                <p 
-                    className="cardParagraph"
-                >
-                    <span>Categoria</span>
-                    { category }
                 </p>
                 <p 
                     className="cardParagraph"

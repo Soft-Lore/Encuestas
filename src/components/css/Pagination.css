@@ -1,0 +1,31 @@
+.btnContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnPage {
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 70px;
+    height: 40px;
+    margin-bottom: 20px;
+    background-color: #6C63FF;
+    border-radius: 20px;
+    border: solid 1px black;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btnPage:hover {
+    background-color: transparent;
+    color: #6C63FF;
+}
+
+.btnPage:disabled {
+    background-color: rgb(51, 40, 200);
+    cursor: default;
+    color: white;
+}
