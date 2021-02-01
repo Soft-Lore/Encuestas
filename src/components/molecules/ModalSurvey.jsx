@@ -158,24 +158,26 @@ const ModalSurvey = ({ state, toggle }) => {
             <div className="survey-body">
                     {
                         survey && (
-                            survey.questions.map((resp, index) =><div className="survey" key={ index * 20}>
-                                 <h1 
-                                    key={ index }
-                                >
-                                    {resp.name}
-                                 </h1>
-                                <ul>
-                                   {
-                                       resp.options.map((response, i) =>  <li key={ i }>
-                                           <p
+                            survey.questions.map((resp, index) =>
+                                <div className="survey" key={ index * 20}>
+                                    <h1 
+                                        key={ index }
+                                    >
+                                        {resp.name}
+                                    </h1>
+                                    <ul>
+                                    {
+                                        resp.options.map((response, i) =>  <li key={ i }>
+                                            <p
                                                 key={ i }
                                             >
-                                            {response}
-                                           </p>
-                                    </li>)
-                                   }
-                                </ul>
-                            </div>)
+                                                {response}
+                                            </p>
+                                        </li>)
+                                    }
+                                    </ul>
+                                </div>
+                            )
                         )
                     }
                 </div>      

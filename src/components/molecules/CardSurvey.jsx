@@ -4,7 +4,7 @@ import Modal from '../molecules/ModalLogIn'
 import '../css/Card.css'
 import { useActive } from '../hooks/index'
 
-const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
+const CardSurvey = ({ title, author, question, buttonTitle }) => {
     const [active, toggleModal] = useActive();
 
     const deleteSurvey = () => {
@@ -26,11 +26,9 @@ const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
                     <span>Autor</span>
                     { author }
                 </p>
-                <p className="cardParagraph">
-                    <span>Categoria</span>
-                    { category }
-                </p>
-                <p className="cardParagraph">
+                <p 
+                    className="cardParagraph"
+                >
                     <span>N° Preguntas</span> 
                     { question }
                 </p>
