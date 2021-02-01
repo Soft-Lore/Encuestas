@@ -1,22 +1,22 @@
 import React, { useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import SingImg from '../../img/signup.png'
 import useForm from '../hooks/useForm'
-import { Errors, TitleForm } from '../atom/index'
-import '../css/SingUp.css'
-import { SideImage } from '../molecules/index'
 import axios from 'axios'
 import viewImage from '../../img/view.svg'
+import { useHistory } from 'react-router-dom'
+import { Errors, TitleForm } from '../atom/index'
+import { SideImage } from '../molecules/index'
 import { viewPassword } from '../functions/index'
+import '../css/SingUp.css'
 
 const SingUp = (props) => {
     const history = useHistory();
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-    let active = false;
     const [error, setError] = useState();
     const { values, captureUsername, captureEmail, capturePassword } = useForm(usernameRef, emailRef, passwordRef);
+    let active = false;
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -47,7 +47,10 @@ const SingUp = (props) => {
             <div className="side2">
                 <div className="side2-content">
                     <TitleForm content="Registrarse"/>
-                    <form onSubmit={e => handleSubmit(e)} className="form">
+                    <form 
+                        onSubmit={e => handleSubmit(e)} 
+                        className="form"
+                    >
                         {
                             error ? (
                                 <Errors error={ error }/>
@@ -97,7 +100,12 @@ const SingUp = (props) => {
                         {values.errorPassword && <Errors error={values.errorPassword}/>}
                         <div className="buttons">
                             <button className="signup-btn">Registrarse</button>
-                            <button className="login-btn" onClick={() => history.push('/login')}>Iniciar Sesion</button>
+                            <button 
+                                className="login-btn" 
+                                onClick={() => history.push('/login')}
+                            >
+                                Iniciar Sesion
+                            </button>
                         </div>
                     </form>
                 </div>

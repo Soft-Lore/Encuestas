@@ -1,11 +1,11 @@
 import React, { useState, useRef, useContext } from 'react'
 import Modal from 'react-modal'
-import '../css/ModalSurvey.css'
-import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import CreateInput from './CreateInput'
+import axios from 'axios'
+import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import { Errors } from '../atom/index'
 import { Token } from '../tokenProvider'
-import axios from 'axios'
+import '../css/ModalSurvey.css'
 
 Modal.setAppElement('#root')
 

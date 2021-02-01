@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Nav } from '../molecules/index'
 import { MySurveys, CardContainer } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'

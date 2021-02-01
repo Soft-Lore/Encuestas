@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { Nav } from '../molecules/index'
 import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'
+import { useActive } from '../hooks/index'
 import { parseJwt } from '../functions/decryptToken'
 import Modal from '../molecules/ModalSurvey'
 import cookies from 'universal-cookie'
@@ -12,16 +12,13 @@ const cookie = new cookies();
 const Home = () => {
     const data = cookie.get('auth');
     const token = parseJwt(data)
-    const [active, setActive] = useState(false)
-    const toggle = async () => {
-        setActive(!active)
-    }
+    const [active, toggleActive] = useActive();
 
     return (
         <Provider value={ token }>
             <Nav />
             <MySurveys>
-                <ButtonAddSurvey onClick={ toggle }>
+                <ButtonAddSurvey onClick={ toggleActive }>
                     Crear Nueva encuesta
                     <IconAdd />
                 </ButtonAddSurvey>
@@ -37,7 +34,7 @@ const Home = () => {
             </MySurveys>
             <Modal 
                 state={ active }
-                toggle={ toggle }
+                toggle={ toggleActive }
             />
         </Provider>
         

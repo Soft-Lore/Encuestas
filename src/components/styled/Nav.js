@@ -16,7 +16,6 @@ export const NavBar = styled.nav`
     height: 50px;
     background-color: white;
     z-index: 10;
-    padding-bottom: 10px;
 `; 
     
 export const NavButton = styled(NavLink)`
@@ -64,13 +63,15 @@ export const ImgUser = styled.img`
 
 export const NavOptions = styled.div`
     ${Button};
-    padding-top: 5px;
+    border-radius: 0;
+    padding: 0;
     text-align: center;
-    width: 90px;
-    margin-right: 10px;
+    width: 140px;
+    padding-top: 5px;
     height: 25px;
     outline: none;
     border: 1px solid #2f28a6;
+    font-size: 1rem;
 
     @media screen and (max-width: 600px){
         height: 30px;
@@ -80,15 +81,11 @@ export const NavOptions = styled.div`
 export const LogOutOptions = styled.ul`
     position: absolute;
     display: none;
-    top: 60%;
-    left: -80px;
+    top: 65%;
+    right: 5px;
     list-style: none;
 
     &:hover {
         display: block;
-    }
-
-    & li {
-        margin-top: 5px;
     }
 `;

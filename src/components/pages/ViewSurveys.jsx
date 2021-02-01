@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import '../css/ViewSurvey.css'
 import { Nav } from '../molecules/index'
 import { Errors } from '../atom/index'
+import '../css/ViewSurvey.css'
 
 const survey = {
     title: 'Encuesta 1',
@@ -102,7 +102,10 @@ const ViewSurveys = () => {
     return (
         <>
             <Nav />
-            <form className="viewSurvey form-viewsurvey" onSubmit={ e => setError(toggleSubmit(e)) }>
+            <form 
+                className="viewSurvey form-viewsurvey" 
+                onSubmit={ e => setError(toggleSubmit(e)) }
+            >
                 {
                     survey && (
                         <div className="survey-body">

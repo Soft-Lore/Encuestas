@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { validateName, validatePassword } from '../Validates'
+import { validateUsername, validatePassword } from '../functions/index'
 import { useHistory } from 'react-router-dom'
 import { parseJwt } from '../functions/decryptToken'
 import axios from 'axios';
@@ -30,7 +30,7 @@ const useProfile = () => {
             })
         } else if (name === 'email') {
             setError({
-                name: validateName(element)
+                name: validateUsername(element)
             })
         } else if (name === 'newPassword'){
             setIsPassword(element)
@@ -72,7 +72,7 @@ const useProfile = () => {
                 password: password
             })
                 .then(resp => resp.data === "OK" ? history.push('/login') : null)
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
         }
     }
 
@@ -92,7 +92,6 @@ const useProfile = () => {
         }else{
             updateProfile(token.name, token.email, token.password);
         }
-
     }
     
     return [token, toggleSubmit, toggleInput, error, deleteAccount];

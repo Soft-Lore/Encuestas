@@ -2,9 +2,10 @@ import React from 'react'
 import Modal from 'react-modal'
 import '../css/modal.css'
 
+//Indicandole a la aplicacion a donde debe pertenecer este modal
 Modal.setAppElement('#root')
 
-const ModalLogIn = ({ state, toggle, title, work }) => {
+const ModalLogIn = ({ state, toggle, title, work, note }) => {
     return(
         <Modal 
             isOpen={ state }
@@ -26,6 +27,7 @@ const ModalLogIn = ({ state, toggle, title, work }) => {
             className="modal"
         >
             <h1 className="title-modal">{ title }</h1>
+            <span className="text-note">{ note }</span>
             <div>
                 <button className="btn-modal cancel" onClick={ toggle }>Cancelar</button>
                 <button className="btn-modal acepted" onClick={ work }>Aceptar</button>

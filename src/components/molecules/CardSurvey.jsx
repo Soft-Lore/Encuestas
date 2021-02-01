@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
-import '../css/Card.css'
+import React from 'react'
 import cardImage from '../../img/encuesta.svg'
 import Modal from '../molecules/ModalLogIn'
+import '../css/Card.css'
+import { useActive } from '../hooks/index'
 
 const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
-    const [active, setActive] = useState();
-
-    const toggleDelete = async () => {
-        setActive(!active);
-    }
+    const [active, toggleModal] = useActive();
 
     const deleteSurvey = () => {
         console.log('Encuesta borrada')
@@ -17,35 +14,36 @@ const CardSurvey = ({ title, author, category, question, buttonTitle }) => {
     return(
         <div className="card">
             <div className="cardItem ">
-                <img src={ cardImage } alt="" className="imgCard"/>
+                <img 
+                    src={ cardImage } 
+                    alt="Icono-encuesta" 
+                    className="imgCard"
+                />
                 <h1 className="cardTitle">{ title }</h1>
             </div>
             <div className="cardItem">
-                <p 
-                    className="cardParagraph"
-                >
+                <p className="cardParagraph">
                     <span>Autor</span>
                     { author }
                 </p>
-                <p 
-                    className="cardParagraph"
-                >
+                <p className="cardParagraph">
                     <span>Categoria</span>
                     { category }
                 </p>
-                <p 
-                    className="cardParagraph"
-                >
+                <p className="cardParagraph">
                     <span>N° Preguntas</span> 
                     { question }
                 </p>
             </div>
-            <button className="cardItem cardButton" onClick={toggleDelete}>
+            <button 
+                className="cardItem cardButton" 
+                onClick={toggleModal}
+            >
                 { buttonTitle }
             </button>
             <Modal 
                 state={ active }
-                toggle={ toggleDelete }
+                toggle={ toggleModal }
                 title={ "Desea Eliminar la Encuesta?" }
                 work={ deleteSurvey }
             />

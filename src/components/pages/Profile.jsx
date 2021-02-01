@@ -1,17 +1,18 @@
 import React, { useRef } from 'react'
-import '../css/Profile.css'
-import { useProfile } from '../hooks/index'
-import { Errors } from '../atom/index'
-import { Nav } from '../molecules/index'
 import viewImage from '../../img/view.svg'
+import '../css/Profile.css'
+import { useProfile, useActive } from '../hooks/index'
+import { Errors } from '../atom/index'
+import { Nav, Modal } from '../molecules/index'
 import { viewPassword } from '../functions/index'
 
 const Profile = () => {
     const [userdates, toggleSubmit,toggleInput, error, deleteAccount] = useProfile()
+    const [active, toggleModal] = useActive();
     const errors = error.name;
     const password = useRef()
     const confPassword = useRef();
-    let active = false;
+    let activePassword = false;
 
     return(
        <>
@@ -25,9 +26,7 @@ const Profile = () => {
                                 Información personal
                             </h1>
                         </header>
-                        {
-                           errors ? <Errors error={ errors } secondary="true"/> : null
-                        }
+                        {errors ? <Errors error={ errors } secondary="true"/> : null}
                         <form className="profile-form" onSubmit={ e => toggleSubmit(e) }>
                             <section className="profile-section profile-dates">
                                 <label 
@@ -81,7 +80,7 @@ const Profile = () => {
                                         src={ viewImage } 
                                         alt="Ver"
                                         className="viewPassword viewPasswordProfile"
-                                        onClick={ () => active = viewPassword(active, confPassword) }
+                                        onClick={ () => activePassword = viewPassword(activePassword, confPassword) }
                                     />
                                 </div>
                                 <label 
@@ -102,7 +101,7 @@ const Profile = () => {
                                         src={ viewImage } 
                                         alt="Ver"
                                         className="viewPassword viewPasswordProfile"
-                                        onClick={ () => active = viewPassword(active, password) }
+                                        onClick={ () => activePassword = viewPassword(activePassword, password) }
                                     />
                                 </div>
                             </section>
@@ -112,9 +111,19 @@ const Profile = () => {
                             >
                                 Guardar Datos
                             </button>
-                            <button className="buttonProfile deleteAccount" onClick={ deleteAccount }>
+                            <button 
+                                className="buttonProfile deleteAccount"
+                                onClick={ toggleModal }
+                            >
                                 Eliminar cuenta
                             </button>
+                            <Modal 
+                                state={ active }
+                                toggle={ toggleModal }
+                                title="¿Esta seguro que desea eliminar su cuenta?"
+                                note="Nota: Al eliminar la cuenta se cerrar la sesion y perdera todos sus datos"
+                                work={ deleteAccount }
+                            />
                         </form>
                     </div>
                 </div>

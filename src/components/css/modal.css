@@ -13,6 +13,7 @@
     color: #222;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 1.5rem;
+    margin: 0;
 }
 
 .btn-modal {
@@ -26,6 +27,11 @@
     font-size: 1rem;
     box-shadow: 1px 1px 2px black;
     outline: none;
+}
+
+.text-note {
+    font-size: .9rem;
+    color: #222;
 }
 
 .acepted {

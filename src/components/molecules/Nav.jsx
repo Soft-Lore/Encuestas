@@ -1,43 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { NavBar, NavButton, SectionButtons, NavOptions, SectionLogOut, LogOutOptions, ImgUser, ContainerOptions, NameUser } from '../styled/Nav';
+import React from 'react'
 import Modal from './ModalLogIn'
-import axios from 'axios'
 import user from '../../img/user1.svg'
+import { NavBar, NavButton, SectionButtons, NavOptions, SectionLogOut, LogOutOptions, ImgUser, ContainerOptions, NameUser } from '../styled/Nav';
 import { useHistory } from 'react-router-dom'
-import Cookies from 'universal-cookie'
-
-const cookie = new Cookies()
+import { useActive, useNav } from '../hooks/index'
 
 const Nav = () => {
-    const history = useHistory()
-    const [profile, setProfile] = useState()
-    const [active, setActive] = useState(false);
-    const toggleLogOut = async () => {
-        setActive(!active);
-    }
+    const history = useHistory();
+    const [active, toggleActive] = useActive();
+    const [profile, logOut] = useNav();
 
-    useEffect(() => {
-        const getProfile = async () => {
-            await axios.get('/api/profile')
-                .then(resp => setProfile(resp.data.name))
-                .catch(error => console.log(error))
-        }
-
-        getProfile();
-    }, [])
-
-    const logOut = async () => {
-        const token = cookie.get('auth')
-        
-        if(token){
-            await axios.get('/api/logout')
-            .then(resp => resp)
-            .catch(error => console.log(error))
-
-            history.push('/login')
-        } 
-    }
-    
     return(
         <>
         <NavBar>
@@ -63,7 +35,7 @@ const Nav = () => {
                         </NavOptions>
                     </li>
                     <li>
-                        <NavOptions onClick={ toggleLogOut }>
+                        <NavOptions onClick={ toggleActive }>
                             Cerrar Sesion
                         </NavOptions>
                     </li>
@@ -72,7 +44,7 @@ const Nav = () => {
         </NavBar>
         <Modal 
             state={ active } 
-            toggle={ toggleLogOut }
+            toggle={ toggleActive }
             title={ "Desea Cerrar la Sesion" }
             work={ logOut }
         />

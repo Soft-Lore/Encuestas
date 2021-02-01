@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { validateName, validatePassword } from '../Validates'
+import { validateEmail, validatePassword } from '../functions/index'
 
 
 const useLogIn = (userEmail, password) => {
@@ -14,7 +14,7 @@ const useLogIn = (userEmail, password) => {
         setForm({
             ...form,
             userEmail: userEmail.current.value,
-            errorEmail: validateName(userEmail.current.value)
+            errorEmail: validateEmail(userEmail.current.value)
         })
     }
     const capturePassword = () => {

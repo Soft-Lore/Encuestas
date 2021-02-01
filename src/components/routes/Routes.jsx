@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, LogIn, SingUp, Surveys, ViewSurveys, Footer, Error, Profile } from '../pages/index'
 import ProtectedRoutes from '../../ProtectedRoute'
 import Cookies from 'universal-cookie'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Home, LogIn, SingUp, Surveys, ViewSurveys, Footer, Pagina404, Profile } from '../pages/index'
 
 const cookie = new Cookies()
 
@@ -53,7 +53,7 @@ const Routes = () => {
                     component={ Surveys } 
                     isAuth={auth}
                 />
-                <Route component={ Error } />
+                <Route component={ Pagina404 } />
             </Switch>
             <Footer />
         </Router>
