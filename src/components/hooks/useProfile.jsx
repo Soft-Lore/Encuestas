@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react'
-import cookies from 'universal-cookie'
-import { validateName, validatePassword } from '../Validates'
+import { useState } from 'react'
+import { validateUsername, validatePassword } from '../functions/index'
+import { useHistory } from 'react-router-dom'
+import { parseJwt } from '../functions/decryptToken'
 import axios from 'axios';
+import cookies from 'universal-cookie'
 
-const cookie = new cookies()
-
-//Desencriptar token
-const parseJwt = (token) => {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace('-', '+').replace('_', '/')
-    return JSON.parse(window.atob(base64));
-}
+const cookie = new cookies();
 
 const useProfile = () => {
-    const userData = parseJwt(cookie.get('auth'))
+    const history = useHistory()
+    const data = cookie.get('auth');
+    const userData = parseJwt(data);
     const [token, setToken] = useState({
-        name: '',
-        email: '',
+        name: userData.name,
+        email: userData.email,
         password: ''
     })
 
@@ -26,18 +23,6 @@ const useProfile = () => {
         name: ''
     })
     
-    useEffect(() => {
-        const initialState = async () => {
-            await setToken({
-                ...token,
-                name: userData.name,
-                email: userData.email
-            })
-        }
-
-        initialState()
-    }, [])
-
     const validateError = (name, element) => {
         if(name === 'name'){
             setError({
@@ -45,7 +30,7 @@ const useProfile = () => {
             })
         } else if (name === 'email') {
             setError({
-                name: validateName(element)
+                name: validateUsername(element)
             })
         } else if (name === 'newPassword'){
             setIsPassword(element)
@@ -76,13 +61,19 @@ const useProfile = () => {
     }
 
     const updateProfile = async (name, email, password) => {
-        await axios.put(`/api/users/${userData._id}`, {
-            name: name,
-            email: email,
-            password: password
-        })
-            .then(resp => console.log(resp))
-            .catch(error => console.log(error))
+        if(password.length < 6){
+            setError({
+                name: "Amigo, debe ingresar su contraseña antigua o tu nueva contraseña. No puedes dejar este campo vacio"
+            })
+        }else {
+            await axios.put(`/api/users/${userData._id}`, {
+                name: name,
+                email: email,
+                password: password
+            })
+                .then(resp => resp.data === "OK" ? history.push('/login') : null)
+                .catch(error => console.log(error));
+        }
     }
 
     const deleteAccount = async () => {
@@ -101,7 +92,6 @@ const useProfile = () => {
         }else{
             updateProfile(token.name, token.email, token.password);
         }
-
     }
     
     return [token, toggleSubmit, toggleInput, error, deleteAccount];

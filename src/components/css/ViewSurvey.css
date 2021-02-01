@@ -1,0 +1,53 @@
+.viewSurvey {
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.form-viewsurvey {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.title-survey {
+    text-align: center;
+    font-size: 1.4rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.list-survey {
+    list-style-type: circle;
+}
+
+.options-survey {
+    cursor: pointer;
+}
+
+.options-survey:hover,
+.repeat {
+    list-style-type: disc;
+}
+
+.paragraph-survey {
+    padding-left: 10px;
+}
+
+.btn-view__survey {
+    display: block;
+    width: 40%;
+    height: 40px;
+    outline: none;
+    border: none;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #272286;
+    color: white;
+    margin: auto;
+    margin: auto;
+    transition: background-color .2s ease-in;
+    cursor: pointer;
+}
+
+.btn-view__survey:hover {
+    background-color: #2c25ac;
+}

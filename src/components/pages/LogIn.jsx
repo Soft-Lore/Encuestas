@@ -1,21 +1,21 @@
 import React, { useRef, useState } from 'react'
 import LogInImage from '../../img/login.png'
+import axios from 'axios'
+import viewImage from '../../img/view.svg'
 import { SideImage } from '../molecules/index'
 import { TitleForm, Errors } from '../atom/index'
 import { useHistory } from 'react-router-dom'
 import { useLogIn } from '../hooks/index'
-import axios from 'axios'
-import '../css/LogIn.css'
-import viewImage from '../../img/view.svg'
 import { viewPassword } from '../functions/index'
+import '../css/LogIn.css'
 
-const LogIn = () => {
+const LogIn = (props) => {
     const history = useHistory()
     const email = useRef()
     const password = useRef()
     const [error, setError] = useState()
-    let active = false;
     const { form, captureEmail, capturePassword } = useLogIn(email, password)
+    let active = false;
 
     const toggleSubmit = async (e) => {
         e.preventDefault()
@@ -33,7 +33,8 @@ const LogIn = () => {
             })
             .then(response => {
                 if(response.isAuth){
-                    history.push('/')
+                    props.handle();
+                    history.push('/');
                 }else {
                     if(!response.isAuth){
                         setError(response.message)
@@ -62,11 +63,10 @@ const LogIn = () => {
                                 className="input inputEmail"
                                 ref={ email }
                                 onChange={ captureEmail }
+                                autoComplete="off"
                             />
                         </div>
-                            {
-                                form.errorEmail && <Errors error={ form.errorEmail }/> 
-                            }
+                        {form.errorEmail && <Errors error={ form.errorEmail } />}
                         <div className="formPassword containerForm">
                             <input
                                 name="password"
@@ -76,6 +76,7 @@ const LogIn = () => {
                                 className="input inputPassword"
                                 onChange={ capturePassword }
                                 ref={ password }
+                                autoComplete="off"
                             />
                             <img 
                                 src={ viewImage } 
@@ -84,23 +85,18 @@ const LogIn = () => {
                                 onClick={ () => active = viewPassword(active, password) }
                             />
                         </div>
-                            {
-                                form.errorPassword &&  <Errors error={ form.errorPassword }/>
-                            }
+                        {form.errorPassword &&  <Errors error={ form.errorPassword } />}
                         <div className="buttons">
                             {
                                 error ? (
                                     <Errors error={ error }/>
                                 ): null
                             }
-                            <button 
-                                className="signup-btn"
-                            >
-                                Entrar
-                            </button>
+                            <button className="signup-btn">Entrar</button>
                             <button 
                                 className="login-btn" 
-                                onClick={() => history.push('/singup')}>
+                                onClick={() => history.push('/singup')}
+                            >
                                 Registrarse
                             </button>
                         </div>

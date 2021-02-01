@@ -1,5 +1,5 @@
 import React from 'react'
-import './Footer.css'
+import '../css/Footer.css'
 
 const Footer = () => {
     return (
@@ -7,7 +7,7 @@ const Footer = () => {
             <footer className="footer-content">
                 <div className="content">
                     <h1>SHADOW MONKEES</h1>
-                    <p>© 2021 · All rights reserved</p>
+                    <p>© 2021 · Todos los derechos reservados</p>
                 </div>
             </footer>
         </div>

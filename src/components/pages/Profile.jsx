@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import viewImage from '../../img/view.svg'
 import '../css/Profile.css'
-import { useProfile } from '../hooks/index'
+import { useProfile, useActive } from '../hooks/index'
 import { Errors } from '../atom/index'
+import { Nav, Modal } from '../molecules/index'
+import { viewPassword } from '../functions/index'
 
 const Profile = () => {
     const [userdates, toggleSubmit,toggleInput, error, deleteAccount] = useProfile()
+    const [active, toggleModal] = useActive();
     const errors = error.name;
+    const password = useRef()
+    const confPassword = useRef();
+    let activePassword = false;
 
     return(
        <>
+       <Nav />
         {
             userdates && (
                 <div className="profile-container">
@@ -18,9 +26,7 @@ const Profile = () => {
                                 Información personal
                             </h1>
                         </header>
-                        {
-                           errors ? <Errors error={ errors } secondary="true"/> : null
-                        }
+                        {errors ? <Errors error={ errors } secondary="true"/> : null}
                         <form className="profile-form" onSubmit={ e => toggleSubmit(e) }>
                             <section className="profile-section profile-dates">
                                 <label 
@@ -61,25 +67,43 @@ const Profile = () => {
                                 >
                                     Nueva contraseña
                                 </label>
-                                <input 
-                                    className="inputText input-newPassword"
-                                    type="password"
-                                    onChange={ e => toggleInput(e) }
-                                    autoComplete="off"
-                                    name="newPassword"
-                                />
+                                <div className="containerInputPassword">
+                                    <input 
+                                        className="inputText input-newPassword"
+                                        type="password"
+                                        onChange={ e => toggleInput(e) }
+                                        autoComplete="off"
+                                        name="newPassword"
+                                        ref={ confPassword }
+                                    />
+                                    <img 
+                                        src={ viewImage } 
+                                        alt="Ver"
+                                        className="viewPassword viewPasswordProfile"
+                                        onClick={ () => activePassword = viewPassword(activePassword, confPassword) }
+                                    />
+                                </div>
                                 <label 
                                     className="lbl lbl-confirmPassword"
                                 >
                                     Confirmar nueva contraseña
                                 </label>
-                                <input 
-                                    className="inputText input-confirmPassword"
-                                    type="password"
-                                    name="password"
-                                    onChange={ e => toggleInput(e) }
-                                    autoComplete="off"
-                                />
+                                <div className="containerInputPassword">
+                                    <input
+                                        className="inputText input-confirmPassword"
+                                        type="password"
+                                        name="password"
+                                        onChange={ e => toggleInput(e) }
+                                        autoComplete="off"
+                                        ref={ password }
+                                    />
+                                    <img 
+                                        src={ viewImage } 
+                                        alt="Ver"
+                                        className="viewPassword viewPasswordProfile"
+                                        onClick={ () => activePassword = viewPassword(activePassword, password) }
+                                    />
+                                </div>
                             </section>
                             <button 
                                 type="submit" 
@@ -87,9 +111,19 @@ const Profile = () => {
                             >
                                 Guardar Datos
                             </button>
-                            <button className="buttonProfile deleteAccount" onClick={ deleteAccount }>
+                            <button 
+                                className="buttonProfile deleteAccount"
+                                onClick={ toggleModal }
+                            >
                                 Eliminar cuenta
                             </button>
+                            <Modal 
+                                state={ active }
+                                toggle={ toggleModal }
+                                title="¿Esta seguro que desea eliminar su cuenta?"
+                                note="Nota: Al eliminar la cuenta se cerrar la sesion y perdera todos sus datos"
+                                work={ deleteAccount }
+                            />
                         </form>
                     </div>
                 </div>

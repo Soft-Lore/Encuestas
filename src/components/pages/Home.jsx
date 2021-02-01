@@ -1,37 +1,24 @@
-import { useEffect, useState } from 'react'
-import { useHistory, withRouter } from 'react-router-dom'
 import { Nav } from '../molecules/index'
 import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from '../styled/Home'
-import Cookies from 'universal-cookie'
 import { CardSurvey } from '../molecules/index'
+import { useActive } from '../hooks/index'
+import { parseJwt } from '../functions/decryptToken'
 import Modal from '../molecules/ModalSurvey'
+import cookies from 'universal-cookie'
+import Provider from '../tokenProvider'
 
-const cookie = new Cookies()
+const cookie = new cookies();
 
 const Home = () => {
-    const history = useHistory()
-
-    useEffect(() => {
-        const token = cookie.get('auth')
-
-        if(token){
-            history.push('/')
-        }else {
-            history.push('/login')
-        }
-    
-    }, [history])
-
-    const [active, setActive] = useState(false)
-    const toggle = async () => {
-        setActive(!active)
-    }
+    const data = cookie.get('auth');
+    const token = parseJwt(data)
+    const [active, toggleActive] = useActive();
 
     return (
-        <>
+        <Provider value={ token }>
             <Nav />
             <MySurveys>
-                <ButtonAddSurvey onClick={ toggle }>
+                <ButtonAddSurvey onClick={ toggleActive }>
                     Crear Nueva encuesta
                     <IconAdd />
                 </ButtonAddSurvey>
@@ -41,16 +28,17 @@ const Home = () => {
                         author="Moises Eliel"
                         category="Gustos"
                         question="5"
+                        buttonTitle={ "Eliminar" }
                     />
                 </CardContainer>
             </MySurveys>
             <Modal 
                 state={ active }
-                toggle={ toggle }
+                toggle={ toggleActive }
             />
-        </>
+        </Provider>
         
     )
 }
 
-export default withRouter(Home)
+export default Home

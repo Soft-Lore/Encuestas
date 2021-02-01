@@ -1,28 +1,11 @@
 import React from 'react'
 import Modal from 'react-modal'
 import '../css/modal.css'
-import { useHistory } from 'react-router-dom'
-import Cookies from 'universal-cookie'
-import axios from 'axios'
 
-const cookie = new Cookies()
+//Indicandole a la aplicacion a donde debe pertenecer este modal
 Modal.setAppElement('#root')
 
-const ModalLogIn = ({ state, toggle }) => {
-    const history = useHistory()
-
-    const logOut = async () => {
-        const token = cookie.get('auth')
-        
-        if(token){
-            await axios.get('/api/logout')
-            .then(resp => resp)
-            .catch(error => console.log(error))
-
-            history.push('/login')
-        } 
-    }
-
+const ModalLogIn = ({ state, toggle, title, work, note }) => {
     return(
         <Modal 
             isOpen={ state }
@@ -43,10 +26,11 @@ const ModalLogIn = ({ state, toggle }) => {
             }
             className="modal"
         >
-            <h1 className="title-modal">¿Desea cerrar sesion?</h1>
+            <h1 className="title-modal">{ title }</h1>
+            <span className="text-note">{ note }</span>
             <div>
                 <button className="btn-modal cancel" onClick={ toggle }>Cancelar</button>
-                <button className="btn-modal acepted" onClick={ logOut }>Aceptar</button>
+                <button className="btn-modal acepted" onClick={ work }>Aceptar</button>
             </div>
         </Modal>
     )

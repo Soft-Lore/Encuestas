@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import errorImg from '../../img/error404.png'
 import '../css/Error.css'
 
-const Error = () => {
+const Pagina404 = () => {
     const history = useHistory();
     return (
         <div className="error404">
@@ -16,4 +16,4 @@ const Error = () => {
     )
 }
 
-export default Error
+export default Pagina404

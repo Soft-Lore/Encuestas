@@ -1,5 +1,5 @@
+import { validateUsername, validateEmail, validatePassword } from '../functions/Validates'
 import { useState } from 'react'
-import { validateUsername, validateEmail, validatePassword } from '../SignUpValidation'
 
 const useForm = (usernameRef, emailRef, passwordRef) => {
     const [values, setValues] = useState({
