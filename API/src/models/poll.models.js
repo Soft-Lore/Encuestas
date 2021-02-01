@@ -13,7 +13,7 @@ const PollSchema = new Schema({
     name: String,
     options:[{
       option: String,
-      rate:{type: Number, default: 0}
+      rate:{type: Number, default: 0,}
     }]
   }],
   answered_by:{
