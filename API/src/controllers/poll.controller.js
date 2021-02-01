@@ -2,7 +2,11 @@
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-new-object */
 
+var ObjectId = require('mongodb').ObjectID;
+
 const Poll = require('../models/poll.models');
+
+const User = require('../models/user.models');
 
 exports.getAllPoll = (req,res) => {
     Poll.find({}, (err, polls) => {
@@ -141,7 +145,7 @@ exports.newPoll = (req, res)  => {
     let poll = new Poll();
     let questionsArray = new Array();
   
-    poll.created_by = "6010e03208fda62758809d51";
+    poll.created_by = "60139e577c2b9a20d4ec058f";
     poll.description = req.body.description;
   
     //Convierte cada pregunta en el formato del modelo.
@@ -242,10 +246,12 @@ exports.addQuestion = (req, res)  => {
     return res
       .status(403)
       .json({ message: "Se debe proporcionar un nombre para la pregunta 😑🤡" });
+      
   if (!req.body.options)
     return res
       .status(403)
       .json({ message: "Se debe proporcionar un arreglo de preguntas valido 🧐🧐" });
+
   if (req.body.options.length == 0)
     return res
       .status(403)
@@ -283,6 +289,56 @@ exports.addQuestion = (req, res)  => {
       }
     );
   });
+}
+
+exports.PostReplyPoll = (req, res)  => {
+
+  let id_poll = req.params.id_poll;
+  let id_questions = req.body.id_questions;
+  let id_options = req.body.id_options;
+
+  let user = req.body.user;
+  
+  try {
+    Poll.collection.update(
+        { _id: { $eq: ObjectId(id_poll) } },
+        { $inc: { "questions.$[perf].options.$[est].rate":1} },
+        {
+          arrayFilters: [
+            { "perf._id": { $eq: ObjectId(id_questions) } },
+            { "est._id": { $eq: ObjectId(id_options) } },
+          ],
+        },
+      )
+      .then((resp) => {
+        User.findOne({ _id: user }, (Err, userDB) => {
+          if (Err) {
+            return res.status(404).json({
+              ok: false,
+              message: "Usuario no encontrado",
+              error: Err,
+            });
+          }
+          return res.status(200).json({
+            ok: true,
+            message: "En cuesta respondida Sastifactoriamente 😁👍❤",
+            message2: "Respondida por el Usuario 😎😎:",
+            user: userDB.name,
+          });
+        });
+      })
+      .catch((error) => {
+        return res.status(404).json({
+          ok: false,
+          message: "Sucedio un error al intentar responder la encuesta 😕🤕💔",
+        });
+      });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      message: "Sucedio un error en el servidor 😯😓",
+    });
+  }
 }
 
 
