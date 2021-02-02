@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Nav } from '../molecules/index'
 import { MySurveys, CardContainer } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'
+import { Spinner } from '../atom/index'
 import axios from 'axios'
 import '../css/Surveys.css'
 import Pagination from 'components/molecules/Pagination'
@@ -39,32 +40,36 @@ const Surveys = () => {
 
     return (
         <>
-            <Nav />
-            <MySurveys>
-                <CardContainer>
-                    {
-                        surveyCard && (
-                                currentSurveys.map((response, index) =>
-                                    <div className="surveys" key={index}>
-                                        <CardSurvey
-                                            id={ response._id }
-                                            title={response.description}
-                                            author
-                                            question={response.questions.length}
-                                            buttonTitle={ "Ver" }
-                                            toggleSurvey={ toggleSurvey }
-                                        />
-                                    </div>
-                                )
-                            )
-                    }
-                </CardContainer>
-                <Pagination
-                    page={ page }
-                    totalPages={ totalPages }
-                    paginate={ paginate }
-                />
-            </MySurveys>
+          {
+            surveyCard ? (
+                <>
+                  <Nav />
+                  <MySurveys>
+                      <CardContainer>
+                          {
+                              currentSurveys.map((response, index) =>
+                                  <div className="surveys" key={index}>
+                                      <CardSurvey
+                                          id={ response._id }
+                                          title={response.description}
+                                          author
+                                          question={response.questions.length}
+                                          buttonTitle={ "Ver" }
+                                          toggleSurvey={ toggleSurvey }
+                                      />
+                                  </div>
+                              )   
+                          }
+                      </CardContainer>
+                      <Pagination
+                          page={ page }
+                          totalPages={ totalPages }
+                          paginate={ paginate }
+                      />
+                  </MySurveys>
+                </>
+            ) : <Spinner />
+          }
         </>
     )
 }

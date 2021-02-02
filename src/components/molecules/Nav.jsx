@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Modal from './ModalLogIn'
 import user from '../../img/user1.svg'
 import { NavBar, NavButton, SectionButtons, NavOptions, SectionLogOut, LogOutOptions, ImgUser, ContainerOptions, NameUser } from '../styled/Nav';
 import { useHistory } from 'react-router-dom'
-import { useActive, useNav } from '../hooks/index'
+import { useActive } from '../hooks/index'
+import { Token } from '../tokenProvider'
+import { logOut }  from '../functions/index'
 
 const Nav = () => {
     const history = useHistory();
+    const token = useContext(Token)
     const [active, toggleActive] = useActive();
-    const [profile, logOut] = useNav();
 
     return(
         <>
@@ -25,7 +27,7 @@ const Nav = () => {
                 <ContainerOptions>
                     <ImgUser src={ user } alt=""/>
                     <NameUser>
-                        { profile }
+                        { token.name }
                     </NameUser>
                 </ContainerOptions>
                 <LogOutOptions>
@@ -45,7 +47,7 @@ const Nav = () => {
         <Modal 
             state={ active } 
             toggle={ toggleActive }
-            title={ "Desea Cerrar la Sesion" }
+            title={ "¿Estas seguro que deseas cerrar sesión?" }
             work={ logOut }
         />
         </>

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Button } from './Buttons'
 import { CgAddR } from 'react-icons/cg'
 
@@ -22,6 +22,10 @@ export const MySurveys = styled.section`
     -moz-box-shadow: 1px 6px 22px -10px rgba(33,37,41,1);
     box-shadow: 1px 6px 22px -10px rgba(33,37,41,1);
 
+    @media screen and (max-width: 850px){
+        width: 90%;
+    }
+
     @media screen and (max-width: 600px){
         width: 100%;
     }
@@ -36,22 +40,36 @@ export const ButtonAddSurvey = styled.button`
     margin: auto;
 `;
 
+const cardsAnimation = keyframes`
+    0%{
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+`;
+
 export const CardContainer = styled.div`
+    animation: ${cardsAnimation} .6s ease-out;
+    animation-fill-mode: forwards; 
     padding: 30px 0;
     margin: auto;
-    width: 95%;
+    width: 98%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    place-items: center;
+    grid-template-columns: repeat(4, 240px);
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     
     @media screen and (max-width: 1150px){
         grid-template-columns: repeat(3, 1fr);
+        width: 95%;
     }
     @media screen and (max-width: 850px){
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 250px);
+        width: 98%;
     }
     @media screen and (max-width: 600px){
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 300px);
     }
 `;

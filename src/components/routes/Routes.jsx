@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ProtectedRoutes from '../../ProtectedRoute'
 import Cookies from 'universal-cookie'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, LogIn, SingUp, Surveys, ViewSurveys, Footer, Pagina404, Profile } from '../pages/index'
+import { Home, LogIn, SingUp, Surveys, ViewSurveys, Footer, Pagina404, Profile, MySurvey } from '../pages/index'
 
 const cookie = new Cookies()
 
@@ -33,6 +33,11 @@ const Routes = () => {
                     exact 
                     path="/viewsurvey/:_id" 
                     component={ auth ? ViewSurveys : Pagina404 } 
+                />
+                <Route 
+                    exact 
+                    path="/mysurvey/:id" 
+                    component={ auth ? MySurvey : Pagina404 } 
                 />
                 <ProtectedRoutes 
                     exact 

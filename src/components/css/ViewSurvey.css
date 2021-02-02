@@ -1,7 +1,18 @@
 .viewSurvey {
+    animation: animationEnter .6s ease-out;
+    animation-fill-mode: forwards;
     width: 80%;
     margin: auto;
     margin-top: 40px;
+}
+
+@keyframes animationEnter {
+    0%{
+        transform: translateY(100%);
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
 
 .form-viewsurvey {

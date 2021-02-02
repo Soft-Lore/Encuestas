@@ -1,15 +1,9 @@
 import React from 'react'
 import cardImage from '../../img/encuesta.svg'
-import Modal from '../molecules/ModalLogIn'
 import '../css/Card.css'
-import { useActive } from '../hooks/index'
 
 const CardSurvey = ({ id, title, author, question, buttonTitle, toggleSurvey }) => {
-    const [active, toggleModal] = useActive();
 
-    const deleteSurvey = () => {
-        console.log('Encuesta borrada')
-    }
 
     return(
         <div className="card">
@@ -39,12 +33,6 @@ const CardSurvey = ({ id, title, author, question, buttonTitle, toggleSurvey }) 
             >
                 { buttonTitle }
             </button>
-            <Modal 
-                state={ active }
-                toggle={ toggleModal }
-                title={ "Desea Eliminar la Encuesta?" }
-                work={ deleteSurvey }
-            />
         </div>
     )
 }
