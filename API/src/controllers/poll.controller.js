@@ -134,37 +134,57 @@ exports.getSimpleQuestions = (req, res)  => {
 
 
 exports.newPoll = (req, res)  => {
+  if (!req.body.description)
+    return res
+      .status(403)
+      .json({
+        message: "Se debe proporcionar una descripcion para la encuesta 😅😅",
+      });
+  if (!req.body.questions)
+    return res
+      .status(403)
+      .json({
+        message: "Se debe proporcionar un arreglo de preguntas valido 😕🙃",
+      });
+  if (req.body.questions.length == 0)
+    return res
+      .status(403)
+      .json({
+        message: "Se debe proporcionar un arreglo de preguntas valido 🤗🤨",
+      });
 
-    if(!req.body.description)
-      return res.status(403).json({message: "Se debe proporcionar una descripcion para la encuesta 😅😅"});
-    if(!req.body.questions)
-      return res.status(403).json({message: "Se debe proporcionar un arreglo de preguntas valido 😕🙃"});
-    if(req.body.questions.length == 0)
-      return res.status(403).json({message: "Se debe proporcionar un arreglo de preguntas valido 🤗🤨"});
+  let poll = new Poll();
+  let questionsArray = new Array();
 
-    let poll = new Poll();
-    let questionsArray = new Array();
-  
-    poll.created_by = "60139e577c2b9a20d4ec058f";
-    poll.description = req.body.description;
-  
-    //Convierte cada pregunta en el formato del modelo.
+  poll.created_by = req.body.created_by;
+  poll.description = req.body.description;
 
+  //Convierte cada pregunta en el formato del modelo.
+
+  User.findOne({ _id: poll.created_by }, (Err, userDB) => {
+    
     for (var i = 0; i < req.body.questions.length; i++)
       questionsArray.push(convertQuestion(req.body.questions[i]));
-    
+
     poll.questions = questionsArray;
 
     poll.save((err, pollStored) => {
+      
       if (err)
-        return res.status(500).json({message: "Error al almacenar en la base de datos 😫🥵",err});
-      return res.status(200).json({
-        ok:true,
+        return res.status(500).json({
+          message: "Error al almacenar en la base de datos 😫🥵",
+          err,
+        });
+      
+        return res.status(200).json({
+        ok: true,
         message: "La encuesta se ha recibido correctamente 😎💥",
-        _id: `${ pollStored._id }`
+        _id: `${pollStored._id}`,
+        user: userDB.name,
       });
     });
-  }
+  });
+}
   
 
 exports.getPollsActive = (req, res)  => {
@@ -358,6 +378,30 @@ exports.DeletePoll = (req, res)  => {
           });
         });
       });
+}
+
+exports.PostUserAllPoll = (req, res)  => {
+    
+  let id = req.params.id;
+
+  Poll.find({"created_by":id},(Err, userDB)=>{
+    
+    console.log(id);
+    
+    if (Err)
+      return res.status(500).json({
+        message: "Error al localizar las encuesta! 😭😢🤯",
+        Err,
+      });
+
+      res.status(200).json({
+        ok: true,
+        message:"Estas son todas las encuestas de este Usuario 🤓🤓",
+        userDB
+      });
+  }) 
+
+  
 }
 
 /**Metodos Privados */

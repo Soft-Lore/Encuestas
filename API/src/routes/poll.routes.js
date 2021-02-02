@@ -29,7 +29,10 @@ app.get('/api/polls/active/:id',Pollcontroller.getPollsActive)
 /**dado el Id de una encuesta, regresa un JSON con las preguntas y sus correspondientes opciones de forma resumida */
 app.get('/api/polls/questions/:id',Pollcontroller.getSimpleQuestions)
 
+//Dado el Id de una encuesta esta obtendra las respuestas para esta ser completada
 app.post('/api/answer/Poll/:id_poll',Pollcontroller.PostReplyPoll);
 
+//Pasandole el id de un usuario se obtendran todas las encuestas que este ha creado
+app.get('/api/userAllpoll/:id',Pollcontroller.PostUserAllPoll);
 
 module.exports  = app;
