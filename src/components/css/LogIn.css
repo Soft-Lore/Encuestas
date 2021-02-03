@@ -17,10 +17,10 @@
     outline: none;
 }
 
-.input::placeholder{
+.input::placeholder {
     position: absolute;
     bottom: 10px;
-    color: #1a1a1a;
+    color: #666;
     font-family: 'Inconsolata', monospace;
     font-size: 1.1rem;
     cursor: text;
@@ -30,26 +30,30 @@
     position: relative;
 }
 
-.containerForm::before {
+.containerForm::before,
+.containerSignUp::before {
     content: "";
     position: absolute;
     top: 15%;
     display: block;
-    width: 300px;
+    width: 315px;
     height: 30px;
     background-size: 20px;
     background-repeat: no-repeat;
     border-bottom: 1px solid black;
-    opacity: .8;
+    opacity: .7;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.viewPassword {
+.viewPassword,
+.viewPasswordSignUp {
     position: absolute;
     width: 22px;
     top: 15%;
     right: 5px;
     cursor: pointer;
-    opacity: .9;
+    opacity: .7;
 }
 
 .formEmail::before {

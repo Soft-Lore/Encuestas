@@ -70,6 +70,6 @@ export const CardContainer = styled.div`
         width: 98%;
     }
     @media screen and (max-width: 600px){
-        grid-template-columns: repeat(1, 300px);
+        grid-template-columns: repeat(1, .5fr);
     }
 `;

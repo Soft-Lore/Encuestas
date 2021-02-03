@@ -1,0 +1,40 @@
+.title-result {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.not-result {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 70vh;
+}
+
+.graphic {
+    margin: 60px 0;
+    animation: statsAnimation .6s ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes statsAnimation {
+    0% {
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+.title-not-result {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.title-not-result > span {
+    font-size: 1.3rem;
+
+}
+
+.not-result-img {
+    width: 40%;
+}

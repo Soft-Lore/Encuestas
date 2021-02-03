@@ -12,6 +12,8 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #888;
+    animation: animationEnter .6s ease-out;
+    animation-fill-mode: forwards;
 }
 
 .profile-title {

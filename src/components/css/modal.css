@@ -10,6 +10,8 @@
 }
 
 .title-modal {
+    padding: 0 10px;
+    text-align: center;
     color: #222;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 1.5rem;
@@ -53,9 +55,23 @@
     background-color: #fff;
 }
 
+@media screen and (max-width: 1000px){
+    .title-modal {
+        font-size: 1.3rem;
+    }
+
+    .modal {
+        width: 75%;
+        left: 12.5%;
+    }
+}
+
 @media screen and (max-width: 600px){
     .modal {
         width: 85%;
         left: 7.5%;
+    }
+    .title-modal {
+        font-size: 1rem;
     }
 }

@@ -64,8 +64,9 @@ const SingUp = (props) => {
                                 placeholder="Nombre de Usuario"
                                 ref={usernameRef}
                                 onChange={captureUsername}
-                                className="inputSingUp"
-                            />
+                                className="input"
+                                autoComplete="off"
+                                />
                         </div>
                         {values.errorUsername && <Errors error={values.errorUsername}/>}
                         <div className="email-content containerSignUp">
@@ -76,8 +77,9 @@ const SingUp = (props) => {
                                 placeholder="Correo"
                                 ref={emailRef}
                                 onChange={captureEmail}
-                                className="inputSingUp"
-                            />
+                                className="input"
+                                autoComplete="off"
+                                />
                         </div>
                         {values.errorEmail && <Errors error={values.errorEmail}/>}
                         <div className="password-content containerSignUp">
@@ -88,7 +90,8 @@ const SingUp = (props) => {
                                 placeholder="Contraseña"
                                 ref={passwordRef}
                                 onChange={capturePassword}
-                                className="inputSingUp"
+                                className="input"
+                                autoComplete="off"
                             />
                             <img 
                                 src={ viewImage } 
