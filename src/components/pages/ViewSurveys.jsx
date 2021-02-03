@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Nav } from '../molecules/index'
 import { Errors, Spinner } from '../atom/index'
 import { useSurvey } from '../hooks/index'
-import { Token } from '../tokenProvider'
+import { Token } from '../functions/index'
 import '../css/ViewSurvey.css'
 
 const ViewSurveys = ({ match }) => {
     const id = match.params._id;
-    const data = useContext(Token)
+    const data = Token();
     const [survey, toggleOptions, toggleSubmit] = useSurvey(id, data);
     const [error, setError] = useState('')
 

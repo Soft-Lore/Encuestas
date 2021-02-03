@@ -1,16 +1,32 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Modal from './ModalLogIn'
 import user from '../../img/user1.svg'
 import { NavBar, NavButton, SectionButtons, NavOptions, SectionLogOut, LogOutOptions, ImgUser, ContainerOptions, NameUser } from '../styled/Nav';
 import { useHistory } from 'react-router-dom'
 import { useActive } from '../hooks/index'
-import { Token } from '../tokenProvider'
-import { logOut }  from '../functions/index'
+// import { Token } from '../tokenProvider'
+import { Token }  from '../functions/index'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+
+const cookie = new Cookies()
 
 const Nav = () => {
     const history = useHistory();
-    const token = useContext(Token)
+    const token = Token()
     const [active, toggleActive] = useActive();
+
+    const logOut = async () => {       
+        const token = cookie.get('auth')
+        
+        if(token){
+            await axios.get('/api/logout')
+            .then(resp => resp)
+            .catch(error => console.log(error))
+
+            history.push('/login')
+        } 
+    }
 
     return(
         <>

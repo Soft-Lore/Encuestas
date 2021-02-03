@@ -1,18 +1,18 @@
-// import { useState } from 'react'
+// import { useEffect } from 'react'
 import { Nav } from '../molecules/index'
 import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'
 import { useActive, useSurveys } from '../hooks/index'
 import { Spinner } from '../atom/index'
 import { useHistory } from 'react-router-dom'
+import { Token } from '../functions/index'
 import Modal from '../molecules/ModalSurvey'
-import Provider,  { defaultValue } from '../tokenProvider'
-
 
 const Home = () => {
     const history = useHistory();
     const [active, toggleActive] = useActive();
-    const url = `/api/userAllpoll/${defaultValue._id}`;
+    const data = Token();
+    const url = `/api/userAllpoll/${data._id}`;
     const surveys = useSurveys(url)
 
     const toggleSurvey = id => {
@@ -22,8 +22,8 @@ const Home = () => {
     return (
         <>
             {
-                surveys ? (
-                  <Provider value={ defaultValue }>
+                surveys && data ? (
+                  <>
                       <Nav />
                       <MySurveys>
                           <ButtonAddSurvey onClick={ toggleActive }>
@@ -35,7 +35,7 @@ const Home = () => {
                                 surveys.data.userDB.map((resp, index)=>  <CardSurvey
                                     key={index}
                                     title={resp.description}
-                                    author={defaultValue.name}
+                                    author={data.name}
                                     question={resp.questions.length}
                                     buttonTitle= "Ver"
                                     toggleSurvey={ () => toggleSurvey(resp._id)}
@@ -47,7 +47,7 @@ const Home = () => {
                           state={ active }
                           toggle={ toggleActive }
                       />
-                  </Provider>
+                  </>
                 ) : <Spinner />
             }
         </>
