@@ -176,6 +176,25 @@
     margin: 0;
 }
 
+.sucess-content {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    top: 12px;
+}
+
+.sucess-img {
+    width: 41.7%;
+}
+
+.sucess-title {
+    font-family: 'Yusei Magic', sans-serif;
+}
+
 @media screen and (max-width: 900px) {
 
     .modal-head {
@@ -235,5 +254,13 @@
 
     .survey {
         padding: 10px;
+    }
+
+    .sucess-img {
+        width: 70%;
+    }
+
+    .sucess-title {
+        font-size: 20px;
     }
 }
