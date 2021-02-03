@@ -26,7 +26,7 @@ const Pagination = ({ page, totalPages, paginate }) => {
             setActiveNext(false)
             setActivePrev(false)
         }
-    }, [next, prev])
+    }, [totalPages, page])
 
     return (
         <div className="btnContent">
