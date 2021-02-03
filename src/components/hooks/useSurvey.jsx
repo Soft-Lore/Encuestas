@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const useSurvey = (id, profile) => {
+const useSurvey = (id, profile, sucessHandle) => {
     const [survey, setSurvey] = useState();
     const [result, setResult] = useState([])
 
@@ -73,6 +73,7 @@ const useSurvey = (id, profile) => {
             return 'Complete la encuesta 😪😫';
         } else {
            sendData(result);
+           sucessHandle();
         }
     }
 

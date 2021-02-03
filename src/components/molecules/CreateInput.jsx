@@ -21,8 +21,8 @@ const CreateInput = ({ question, optionHandle, option }) => {
                     />
                 </li>
             </ul>
-            <button className="add-option">
-                <BiPlus onClick={optionHandle}/>
+            <button className="add-option" onClick={optionHandle}>
+                <BiPlus />
             </button>    
         </div>
     )

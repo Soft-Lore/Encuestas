@@ -6,6 +6,7 @@ import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import { Errors } from '../atom/index'
 import { Token } from '../tokenProvider'
 import '../css/ModalSurvey.css'
+import sucessImg from '../../img/sucess.png'
 
 Modal.setAppElement('#root')
 
@@ -83,6 +84,12 @@ const ModalSurvey = ({ state, toggle }) => {
         } else {  
             postSurvey(survey)
             setError()
+            setSurvey()
+            const sucess = document.getElementById('sucess')
+            sucess.style.display = 'flex'
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         }
     }
 
@@ -180,7 +187,11 @@ const ModalSurvey = ({ state, toggle }) => {
                             )
                         )
                     }
-                </div>      
+            </div>
+            <div className="sucess-content" id="sucess">
+                <img className="sucess-img" src={sucessImg} alt=""/>
+                <h1 className="sucess-title">Encuesta se creo correctamente.👍😁</h1>
+            </div>   
         </Modal>
     )
 }

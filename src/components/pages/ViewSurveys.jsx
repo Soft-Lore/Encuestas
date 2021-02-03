@@ -4,12 +4,23 @@ import { Errors, Spinner } from '../atom/index'
 import { useSurvey } from '../hooks/index'
 import { Token } from '../tokenProvider'
 import '../css/ViewSurvey.css'
+import sucessFormImg from '../../img/done.png'
+import { useHistory } from 'react-router-dom'
 
 const ViewSurveys = ({ match }) => {
+    const history = useHistory()
     const id = match.params._id;
     const data = useContext(Token)
-    const [survey, toggleOptions, toggleSubmit] = useSurvey(id, data);
+    const sucessHandle = () => {
+        const sucess = document.getElementById('sucess')
+        sucess.style.display = 'flex'
+    }
+    const [survey, toggleOptions, toggleSubmit] = useSurvey(id, data, sucessHandle);
     const [error, setError] = useState('')
+
+    const sucessBtn = () => {
+        history.push('/surveys')
+    }
 
     return (
         <>
@@ -70,6 +81,13 @@ const ViewSurveys = ({ match }) => {
                         Enviar Respuestas
                     </button>
                 </form>
+                <div className="sucess-form" id="sucess">
+                    <div className="sucess-container">
+                        <img src={sucessFormImg} alt="" className="done-img"/>
+                        <h1 className="done-title">Respuesta Enviada.👍😎</h1>
+                        <button className="done-btn" onClick={sucessBtn}>Aceptar</button>
+                    </div>
+                </div>
             </>
           ) : <Spinner />
         }

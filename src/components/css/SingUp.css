@@ -188,25 +188,6 @@
     background-image: url(../../img/padlock.svg);
 }
 
-@media screen and (min-width: 1920px) {
-    .title-singup {
-        font-size: 30px;
-        margin-bottom: 60px;
-    }
-    .inputSingUp {
-        width: 700px;
-        margin-bottom: 60px;
-        font-size: 30px;
-    }
-
-    .buttons button {
-        width: 700px;
-        height: 80px;
-        margin-bottom: 60px;
-        border-radius: 40px;
-    }
-}
-
 @media screen and (max-width: 900px) {
     .side1 {
         display: none;
