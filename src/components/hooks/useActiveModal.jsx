@@ -5,7 +5,10 @@ const useActiveModal = () => {
 
     const toggleModal = async () => {
         await setActive(!active);
+
+        active ? document.body.style.overflow = 'auto' : document.body.style.overflow = 'hidden';
     }
+
 
     return [active, toggleModal]
 }

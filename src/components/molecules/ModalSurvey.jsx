@@ -131,22 +131,32 @@ const ModalSurvey = ({ state, toggle }) => {
             </div>
             <form className="modal-body" onSubmit={handleSubmit}>
                 <div className="survey-head">
-                    <div className="survey-title">
-                        <input
-                            name="title"
-                            type="text"
-                            placeholder="Titulo de encuesta"
-                            id="title"
-                            className="title"
-                            ref={ inputTitle }
-                        />
-                    </div>
+                    <input
+                        name="title"
+                        type="text"
+                        placeholder="Titulo de encuesta"
+                        id="title"
+                        className="survey-title"
+                        ref={ inputTitle }
+                        autoComplete="off"
+                    />
                     <div className="tools-buttons">
-                        <button className="add btn" onClick={inputHandle}>
-                            <BiAddToQueue className="icon"/>
+                        <button 
+                            className="add btn" 
+                            onClick={inputHandle}
+                            title="Añadir nueva pregunta"
+                        >
+                            <BiAddToQueue 
+                                className="icon"
+                            />
                         </button>
-                        <button className="send btn">
-                            <BiSend className="icon"/>
+                        <button 
+                            className="send btn"
+                            title="Enviar encuesta"
+                        >
+                            <BiSend 
+                                className="icon"
+                            />
                         </button>
                     </div>
                 </div>
@@ -159,7 +169,7 @@ const ModalSurvey = ({ state, toggle }) => {
                         option={ inputOption }
                         question={ inputQuestion }
                         key="one"
-                    />  
+                        />  
                 </div>
             </form>
             <div className="survey-body">

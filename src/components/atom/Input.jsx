@@ -10,6 +10,7 @@ const Input = ({ require, name, place, styles, key, secondary }) => {
             ref={ require }
             key={ key }
             disabled={ secondary === "true" ? true : null }
+            autoComplete="off"
         />
     )
 }

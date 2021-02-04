@@ -37,6 +37,7 @@ export const ButtonAddSurvey = styled.button`
     color:  #2f28a6;
     position: relative;
     display: block;
+    outline: none;
     margin: auto;
 `;
 

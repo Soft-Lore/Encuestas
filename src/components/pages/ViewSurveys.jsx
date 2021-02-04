@@ -35,7 +35,7 @@ const ViewSurveys = ({ match }) => {
                     {
                         <div className="survey-body">
                             <h1 className="title-survey">
-                                { survey.title }
+                                { survey.Poll.description }
                             </h1>
                             {
                                 error && (
