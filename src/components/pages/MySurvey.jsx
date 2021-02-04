@@ -7,7 +7,7 @@ import '../css/Grafica.css'
 
 const MySurvey = ({ match }) => {
     const url = `/api/poll/${match.params.id}`;
-    const survey = useSurveys(url, true)
+    const [survey] = useSurveys(url, true)
     const data = useGraphics(survey)
     let validate = 0;
    

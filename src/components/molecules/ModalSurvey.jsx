@@ -1,17 +1,17 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef } from 'react'
 import Modal from 'react-modal'
 import CreateInput from './CreateInput'
 import axios from 'axios'
 import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import { Errors } from '../atom/index'
-import { Token } from '../tokenProvider'
+import { Token } from '../functions/index'
 import '../css/ModalSurvey.css'
 import sucessImg from '../../img/sucess.png'
 
 Modal.setAppElement('#root')
 
 const ModalSurvey = ({ state, toggle }) => {
-    const data = useContext(Token);
+    const data = Token();
     const inputTitle = useRef()
     const inputQuestion = useRef()
     const inputOption = useRef()

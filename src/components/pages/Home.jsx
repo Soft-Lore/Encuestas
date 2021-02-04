@@ -24,7 +24,6 @@ const Home = () => {
     const lastIndex = page * surveysPerPage;
     const firstIndex = lastIndex - surveysPerPage;
     const currentSurveys = surveys && (surveys.data.userDB.slice(firstIndex, lastIndex))
-    console.log(currentSurveys);
     const paginate = numPage => setPage(numPage);
 
     return (
