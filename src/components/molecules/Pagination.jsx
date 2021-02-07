@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import '../css/Pagination.css'
 
 const Pagination = ({ page, totalPages, paginate }) => {
-    const [activeNext, setActiveNext] = useState(false);
-    const [activePrev, setActivePrev] = useState(false);
+    const [activeNext, setActiveNext] = useState(true);
+    const [activePrev, setActivePrev] = useState(true);
 
     const next = () => {
         paginate(page + 1)
@@ -16,14 +16,19 @@ const Pagination = ({ page, totalPages, paginate }) => {
     }
 
     useEffect(() => {
-        if (totalPages === page || page > 1) {
+        if (totalPages === page) {
             setActiveNext(true)
-            setActivePrev(false)
-        } else if (page === 1 || totalPages < page) {
-            setActiveNext(false)
-            setActivePrev(true)
+        } else if (totalPages === 0) {
+            setActiveNext(true)
         } else {
             setActiveNext(false)
+        }
+    }, [totalPages, page])
+
+    useEffect(() => {
+        if (page === 1) {
+            setActivePrev(true)
+        } else {
             setActivePrev(false)
         }
     }, [totalPages, page])

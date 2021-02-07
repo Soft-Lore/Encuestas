@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const useSurveys = (url, optional)=> {
     const [surveys, setSurveys] = useState();
-    const [totalPages, setTotalPages] = useState();
+    const [totalPages, setTotalPages] = useState(0);
     const surveysPerPage = 8;
   
     useEffect(() => {
