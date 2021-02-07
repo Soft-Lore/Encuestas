@@ -16,14 +16,19 @@ const Pagination = ({ page, totalPages, paginate }) => {
     }
 
     useEffect(() => {
-        if (totalPages === page || page > 1) {
+        if (totalPages === page) {
             setActiveNext(true)
-            setActivePrev(false)
-        } else if (page === 1 || totalPages < page) {
-            setActiveNext(false)
-            setActivePrev(true)
+        } else if (totalPages === 0) {
+            setActiveNext(true)
         } else {
             setActiveNext(false)
+        }
+    }, [totalPages, page])
+
+    useEffect(() => {
+        if (page === 1) {
+            setActivePrev(true)
+        } else {
             setActivePrev(false)
         }
     }, [totalPages, page])
