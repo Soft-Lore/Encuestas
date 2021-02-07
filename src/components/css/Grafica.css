@@ -11,9 +11,23 @@
 }
 
 .graphic {
-    margin: 60px 0;
+    margin: 60px 0 50px 0;
     animation: statsAnimation .6s ease-out;
     animation-fill-mode: forwards;
+}
+
+.btn-delete__survey {
+    cursor: pointer;
+    display: block;
+    border-radius: 20px;
+    margin: auto;
+    margin-bottom: 40px;
+    outline: none;
+    border: 1px solid #555;
+    padding: 10px 25px;
+    color: white;
+    font-size: 1.2rem;
+    background-color: red;
 }
 
 @keyframes statsAnimation {

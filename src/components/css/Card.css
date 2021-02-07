@@ -16,10 +16,6 @@
     box-shadow: -3px 0px 10px -4px rgba(0,0,0,0.5);
 }
 
-.card:hover {
-    border: 1px solid #2f28a6;
-}
-
 .cardItem {
     position: relative;
     width: 100%;
@@ -33,7 +29,6 @@
     align-items: center;
     height: 40%;
     text-align: center;
-    /* background-color: #2f28a6; */
 }
 
 .cardItem:nth-child(2) {
@@ -54,11 +49,6 @@
     font-size: 1rem;
     color: white;
     background-color: #2f28a6;
-}
-
-.cardButton:hover{
-    background-color:  #1d1968;
-    color: #ffffff;
 }
 
 .cardItem:nth-child(1)::before{
@@ -101,6 +91,17 @@
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
+}
+
+@media screen and (min-width: 1000px){
+    .cardButton:hover{
+        background-color:  #1d1968;
+        color: #ffffff;
+    }
+    
+    .card:hover {
+        border: 1px solid #2f28a6;
+    }
 }
 
 @media screen and (max-width: 600px){

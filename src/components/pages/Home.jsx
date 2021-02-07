@@ -15,7 +15,7 @@ const Home = () => {
     const [active, toggleActive] = useActive();
     const data = Token();
     const url = `/api/userAllpoll/${data._id}`;
-    const [surveys, totalPages, surveysPerPage] = useSurveys(url)
+    const [surveys, extra, totalPages, surveysPerPage] = useSurveys(url)
 
     const toggleSurvey = id => {
         history.push(`/mysurvey/${id}`);
@@ -60,6 +60,7 @@ const Home = () => {
                         <Modal 
                             state={ active }
                             toggle={ toggleActive }
+                            reload={ extra }
                         />
                     </>
                 ) : <Spinner />

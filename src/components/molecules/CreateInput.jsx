@@ -5,7 +5,7 @@ import { Input } from '../atom/index'
 const CreateInput = ({ question, optionHandle, option }) => {
     return (
         <div className="survey">
-              <Input 
+            <Input 
                 name="question"
                 place="Pregunta"
                 styles="questions"

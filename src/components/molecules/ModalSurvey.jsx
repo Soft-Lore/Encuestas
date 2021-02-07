@@ -10,7 +10,7 @@ import sucessImg from '../../img/sucess.png'
 
 Modal.setAppElement('#root')
 
-const ModalSurvey = ({ state, toggle }) => {
+const ModalSurvey = ({ state, toggle, reload }) => {
     const data = Token();
     const inputTitle = useRef()
     const inputQuestion = useRef()
@@ -85,18 +85,48 @@ const ModalSurvey = ({ state, toggle }) => {
             postSurvey(survey)
             setError()
             setSurvey()
-            const sucess = document.getElementById('sucess')
-            sucess.style.display = 'flex'
+            reload();
             setTimeout(() => {
-                window.location.reload()
-            }, 1000);
+                const sucess = document.getElementById('sucess')
+                sucess.style.display = 'flex'
+            }, 500);
         }
+    }
+
+    const deleteQuestion = (e) => {
+        const dataTarget = e.target.getAttribute('data-target')
+
+        const newSurvey = survey.questions.filter(resp => resp.name !== dataTarget)
+
+        setSurvey({
+            ...survey,
+            questions: newSurvey
+        })
+    }
+
+    const deleteOption = e => {
+        const dataOption = e.target.getAttribute('data-option')
+        const dataParent = e.target.getAttribute('data-parent')
+
+        let index;
+
+        survey.questions.map(resp => resp.name === dataParent ? (
+            resp.options.length <= 1 ? (
+                setError('La pregunta no puede quedar sin respuestas')
+            ) : (
+                index = resp.options.indexOf(dataOption),
+                resp.options.splice(index, 1)
+            )
+        ) : null)
+
+        setSurvey({...survey})
     }
 
     return (
         <Modal
             isOpen={ state }
             onRequestClose={ toggle }
+            className="modal-survey"
             style={
                 {
                     overlay: {
@@ -110,20 +140,9 @@ const ModalSurvey = ({ state, toggle }) => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                    },
-                    content: {
-                        background: 'white',
-                        outline: 'none',
-                        width: '50rem',
-                        height: 'auto',
-                        maxHeight: '500px',
-                        boxShadow: '0 0 34px 0 rgba(0, 0, 0, 0.24)',
-                        overflowY: 'auto',
-                        position: 'relative'
                     }
                 }
             }
-            className="modal-survey"
         >
             <div className="modal-head">
                 <h1 className="modal-title">Crear nueva encuesta</h1>
@@ -176,15 +195,33 @@ const ModalSurvey = ({ state, toggle }) => {
                     {
                         survey && (
                             survey.questions.map((resp, index) =>
-                                <div className="survey" key={ index * 20}>
-                                    <h1 
+                            <div className="survey" key={ index * 20}>
+                                    <button
+                                        className="button-delete button-delete__question"
+                                        data-target={resp.name}
+                                        onClick={ e => deleteQuestion(e)}
+                                    >
+                                        X
+                                    </button>
+                                    <p
+                                        className="question-show"
                                         key={ index }
                                     >
                                         {resp.name}
-                                    </h1>
+                                    </p>
                                     <ul>
                                     {
-                                        resp.options.map((response, i) =>  <li key={ i }>
+                                        resp.options.map((response, i) =>  <li key={ i }
+                                        className="options-create"
+                                        >
+                                             <button
+                                                className="button-delete button-delete__option"
+                                                data-option={response}
+                                                data-parent={resp.name}
+                                                onClick={ e => deleteOption(e)}
+                                            >
+                                                X
+                                            </button>
                                             <p
                                                 key={ i }
                                             >

@@ -1,15 +1,31 @@
-import { useSurveys, useGraphics } from '../hooks/index'
+import { useSurveys, useGraphics, useActive } from '../hooks/index'
 import { Spinner } from '../atom/index'
-import { Nav } from '../molecules/index'
+import { Nav, Modal } from '../molecules/index'
 import { Pie } from 'react-chartjs-2'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 import SadImage from '../../img/sad.svg'
 import '../css/Grafica.css'
 
 const MySurvey = ({ match }) => {
+    const history = useHistory();
     const url = `/api/poll/${match.params.id}`;
+    const [active, toggleActive] = useActive()
     const [survey] = useSurveys(url, true)
     const data = useGraphics(survey)
     let validate = 0;
+
+    const deleteSurvey = async () => {
+        let result;
+        await axios.delete(url)
+        .then(resp => result = resp.status)
+        .catch(error => console.log(error))
+
+        if(result === 200){
+            toggleActive()
+            history.push('/')
+        }
+    }
    
     return(
         <>
@@ -47,6 +63,19 @@ const MySurvey = ({ match }) => {
                     )
                 ) : <Spinner />
             }
+            <button
+                className="btn-delete__survey"
+                onClick={toggleActive}
+            >
+                Eliminar encuesta
+            </button>
+            <Modal
+                state={ active }
+                toggle={ toggleActive }
+                title="¿Estas seguto que deseas eliminar esta encuesta?"
+                note="Nota: Si eliminas la encuesta, perderas todos los resultados obtenidos de la misma"
+                work={deleteSurvey}
+            />
         </>
     )
 }
