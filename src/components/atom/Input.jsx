@@ -12,7 +12,7 @@ const Input = ({ require, name, place, styles, key, secondary }) => {
             disabled={ secondary === "true" ? true : null }
             autoComplete="off"
         />
-    )
+    );
 }
 
 export default Input

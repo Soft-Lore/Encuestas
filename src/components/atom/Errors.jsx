@@ -5,7 +5,7 @@ const Errors = ({ error, secondary }) => {
         <p className={ secondary === "true" ?  "error error-profile" : "error" }>
             { error }
         </p>
-    )
+    );
 }
 
 export default Errors;

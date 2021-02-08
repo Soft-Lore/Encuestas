@@ -1,7 +1,7 @@
 import { useSurveys, useGraphics, useActive } from '../hooks/index'
 import { Spinner } from '../atom/index'
 import { Nav, Modal } from '../molecules/index'
-import { Pie } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import SadImage from '../../img/sad.svg'
@@ -15,6 +15,7 @@ const MySurvey = ({ match }) => {
     const data = useGraphics(survey)
     let validate = 0;
 
+    //Funcion para eliminar encuesta
     const deleteSurvey = async () => {
         let result;
         await axios.delete(url)
@@ -46,7 +47,7 @@ const MySurvey = ({ match }) => {
                          data.labels.map((resp, index) => 
                             <div key={ index * 20 } className="graphic">
                                 <h3 className="title-result">{data.name[index]}</h3>
-                                <Pie 
+                                <Doughnut  
                                     key={index}
                                     data={{
                                         labels: resp,
@@ -54,10 +55,10 @@ const MySurvey = ({ match }) => {
                                             data: data.datasets.data[index],
                                             backgroundColor: data.datasets.backgroundColor[index]
                                         }]
-                                    }}  
-                                    options={{
-                                        responsive:true
                                     }}
+                                    width={10}
+                                    height={3}
+                                    options={{ responsive: true }}
                                 />
                         </div>)
                     )

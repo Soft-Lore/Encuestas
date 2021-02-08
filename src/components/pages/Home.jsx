@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Nav } from '../molecules/index'
 import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'
@@ -7,24 +6,18 @@ import { Spinner } from '../atom/index'
 import { useHistory } from 'react-router-dom'
 import { Token } from '../functions/index'
 import Modal from '../molecules/ModalSurvey'
-import Pagination from '../molecules/Pagination'
 
 const Home = () => {
     const history = useHistory();
-    const [page, setPage] = useState(1);
-    const [active, toggleActive] = useActive();
     const data = Token();
     const url = `/api/userAllpoll/${data._id}`;
-    const [surveys, extra, totalPages, surveysPerPage] = useSurveys(url)
+    const [active, toggleActive] = useActive();
+    const [surveys, extra] = useSurveys(url)
 
+    //Redirigir a los detalles de una encuesta
     const toggleSurvey = id => {
         history.push(`/mysurvey/${id}`);
     }
-
-    const lastIndex = page * surveysPerPage;
-    const firstIndex = lastIndex - surveysPerPage;
-    const currentSurveys = surveys && (surveys.data.userDB.slice(firstIndex, lastIndex))
-    const paginate = numPage => setPage(numPage);
 
     return (
         <>
@@ -39,7 +32,7 @@ const Home = () => {
                             </ButtonAddSurvey>
                             <CardContainer>
                                 {
-                                    currentSurveys.map((resp, index)=>
+                                    surveys.data.userDB.map((resp, index)=>
                                         <CardSurvey
                                             key={index}
                                             title={resp.description}
@@ -51,11 +44,6 @@ const Home = () => {
                                     )
                                 }
                             </CardContainer>
-                            <Pagination 
-                                page={page}
-                                totalPages={totalPages}
-                                paginate={paginate}
-                            />
                         </MySurveys>
                         <Modal 
                             state={ active }

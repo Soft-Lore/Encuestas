@@ -75,6 +75,7 @@
 }
 
 .cardButton {
+    outline: none;
     border: none;
     border-top: 1px solid #555;
     cursor: pointer;

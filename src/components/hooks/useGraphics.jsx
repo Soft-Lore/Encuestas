@@ -5,9 +5,9 @@ const useGraphics = survey => {
         labels: []
     }])
     
-    const colors = ['#6761df', '#ffafcc', '#caffbf', '#fdffb6', '#cdb4db', '#81b29a', '#f6bd60', '#adb5bd'];
-
+    
     useEffect(() => {
+        const colors = ['#da1e37', '#0466c8', '#2ec4b6', '#fdffb6', '#cdb4db', '#81b29a', '#6761df', '#adb5bd'];
         survey && (
             setData(
                 {
