@@ -33,11 +33,17 @@ const Pagination = ({ page, totalPages, paginate }) => {
         }
     }, [totalPages, page])
 
+    console.log(totalPages);
+
     return (
-        <div className="btnContent">
-            <button className="btnPage" onClick={prev} disabled={activePrev}> &#8592; </button>
-            <button className="btnPage" onClick={next} disabled={activeNext}> &#8594; </button>
-        </div>
+        (
+            totalPages === 1 ? null : (
+                <div className="btnContent">
+                    <button className="btnPage" onClick={prev} disabled={activePrev}> &#8592; </button>
+                    <button className="btnPage" onClick={next} disabled={activeNext}> &#8594; </button>
+                </div>
+            )
+        )
     )
 }
 

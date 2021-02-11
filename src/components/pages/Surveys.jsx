@@ -41,7 +41,6 @@ const Surveys = () => {
                           {
                               currentSurveys.map((response, index) =>
                                     <CardSurvey
-                                        key={index}
                                         id={ response._id }
                                         key={response._id}
                                         title={response.description}
