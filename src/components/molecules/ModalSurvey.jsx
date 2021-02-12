@@ -7,10 +7,13 @@ import { Errors } from '../atom/index'
 import { Token } from '../functions/index'
 import '../css/ModalSurvey.css'
 import sucessImg from '../../img/sucess.png'
+import SuccessModal from '../molecules/SuccessModal'
+import { useActive } from '../hooks/index'
 
 Modal.setAppElement('#root')
 
 const ModalSurvey = ({ state, toggle, reload }) => {
+    const [active, toggleActive] = useActive()
     const data = Token();
     const inputTitle = useRef()
     const inputQuestion = useRef()
@@ -86,10 +89,7 @@ const ModalSurvey = ({ state, toggle, reload }) => {
             setError()
             setSurvey()
             reload();
-            setTimeout(() => {
-                const sucess = document.getElementById('sucess')
-                sucess.style.display = 'flex'
-            }, 500);
+            toggleActive(true)
         }
     }
 
@@ -122,6 +122,10 @@ const ModalSurvey = ({ state, toggle, reload }) => {
         setSurvey({...survey})
     }
 
+    const successButton = () => {
+        window.location.reload();
+    }
+
     return (
         <Modal
             isOpen={ state }
@@ -131,7 +135,7 @@ const ModalSurvey = ({ state, toggle, reload }) => {
                 {
                     overlay: {
                         position: 'fixed',
-                        zIndex: '100',
+                        zIndex: '20',
                         top: '0',
                         left: '0',
                         width: '100vw',
@@ -235,10 +239,13 @@ const ModalSurvey = ({ state, toggle, reload }) => {
                         )
                     }
             </div>
-            <div className="sucess-content" id="sucess">
-                <img className="sucess-img" src={sucessImg} alt=""/>
-                <h1 className="sucess-title">Encuesta se creo correctamente.👍😁</h1>
-            </div>   
+            <SuccessModal
+                state={ active }
+                toggle={ toggleActive }
+                image={ sucessImg }
+                title={ "Encuesta creada correctamente! 👍😁" }
+                button={ successButton }
+            />
         </Modal>
     )
 }
