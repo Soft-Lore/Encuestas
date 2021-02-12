@@ -10,7 +10,7 @@ import Modal from '../molecules/ModalSurvey'
 import Pagination from '../molecules/Pagination'
 
 const Home = () => {
-    const [page, setPage] = useState();
+    const [page, setPage] = useState(1);
     const history = useHistory();
     const data = Token();
     const url = `/api/userAllpoll/${data._id}`;
@@ -23,8 +23,9 @@ const Home = () => {
     }
 
     const lastIndex = page * surversPerPage;
-    const firstIndex = lastIndex * surversPerPage;
+    const firstIndex = lastIndex - surversPerPage;
     const currentSurveys = surveys && (surveys.data.userDB.slice(firstIndex, lastIndex))
+    const paginate = numPage => setPage(numPage)
 
     return (
         <>
@@ -54,7 +55,7 @@ const Home = () => {
                             <Pagination
                                 page={ page }
                                 totalPages={ totalPages }
-                                /* paginate={ paginate } */
+                                paginate={ paginate }
                             />
                         </MySurveys>
                         <Modal 
