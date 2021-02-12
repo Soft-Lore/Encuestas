@@ -6,14 +6,16 @@ import { Token } from '../functions/index'
 import '../css/ViewSurvey.css'
 import sucessFormImg from '../../img/done.png'
 import { useHistory } from 'react-router-dom'
+import SuccessModal from '../molecules/SuccessModal'
+import { useActive } from '../hooks/index'
 
 const ViewSurveys = ({ match }) => {
+    const [active, toggleActive] = useActive()
     const history = useHistory()
     const id = match.params._id;
     const data = Token();
     const sucessHandle = () => {
-        const sucess = document.getElementById('sucess')
-        sucess.style.display = 'flex'
+        toggleActive(true)
     }
     const [survey, toggleOptions, toggleSubmit] = useSurvey(id, data, sucessHandle);
     const [error, setError] = useState('')
@@ -81,13 +83,20 @@ const ViewSurveys = ({ match }) => {
                         Enviar Respuestas
                     </button>
                 </form>
-                <div className="sucess-form" id="sucess">
+                {/* <div className="sucess-form" id="sucess">
                     <div className="sucess-container">
                         <img src={sucessFormImg} alt="" className="done-img"/>
                         <h1 className="done-title">Respuesta Enviada.👍😎</h1>
                         <button className="done-btn" onClick={sucessBtn}>Aceptar</button>
                     </div>
-                </div>
+                </div> */}
+                <SuccessModal 
+                    state={ active }
+                    toggle={ toggleActive }
+                    image={ sucessFormImg }
+                    title={"La respuesta se envio correctamente! 👍😎"}
+                    button={ sucessBtn }
+                />
             </>
           ) : <Spinner />
         }
