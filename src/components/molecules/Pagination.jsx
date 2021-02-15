@@ -37,7 +37,7 @@ const Pagination = ({ page, totalPages, paginate }) => {
 
     return (
         (
-            totalPages === 1 ? null : (
+            totalPages < 2 ? null : (
                 <div className="btnContent">
                     <button className="btnPage" onClick={prev} disabled={activePrev}> &#8592; </button>
                     <button className="btnPage" onClick={next} disabled={activeNext}> &#8594; </button>
