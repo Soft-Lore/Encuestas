@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.37149748.chunk.css",
+    "main.js": "/static/js/main.8c3aa25c.chunk.js",
+    "main.js.map": "/static/js/main.8c3aa25c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5abc4235.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5abc4235.js.map",
+    "static/js/2.3382e3dd.chunk.js": "/static/js/2.3382e3dd.chunk.js",
+    "static/js/2.3382e3dd.chunk.js.map": "/static/js/2.3382e3dd.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.37149748.chunk.css.map": "/static/css/main.37149748.chunk.css.map",
+    "static/js/2.3382e3dd.chunk.js.LICENSE.txt": "/static/js/2.3382e3dd.chunk.js.LICENSE.txt",
+    "static/media/done.13c197e0.png": "/static/media/done.13c197e0.png",
+    "static/media/encuesta.f3817be0.svg": "/static/media/encuesta.f3817be0.svg",
+    "static/media/error404.694b4357.png": "/static/media/error404.694b4357.png",
+    "static/media/loading.38d4dd8c.svg": "/static/media/loading.38d4dd8c.svg",
+    "static/media/login.ffe0c8d4.png": "/static/media/login.ffe0c8d4.png",
+    "static/media/SingUp.css": "/static/media/user.78b64d9f.svg",
+    "static/media/sad.9a96bb92.svg": "/static/media/sad.9a96bb92.svg",
+    "static/media/signup.aca75e46.png": "/static/media/signup.aca75e46.png",
+    "static/media/sucess.d33ed3ac.png": "/static/media/sucess.d33ed3ac.png",
+    "static/media/user1.7bbddee0.svg": "/static/media/user1.7bbddee0.svg",
+    "static/media/view.e24ff65a.svg": "/static/media/view.e24ff65a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5abc4235.js",
+    "static/js/2.3382e3dd.chunk.js",
+    "static/css/main.37149748.chunk.css",
+    "static/js/main.8c3aa25c.chunk.js"
+  ]
+}

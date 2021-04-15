@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Nav } from '../molecules/index'
-import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer } from '../styled/Home'
+import { MySurveys, ButtonAddSurvey, IconAdd,CardContainer, NotPoll } from '../styled/Home'
 import { CardSurvey } from '../molecules/index'
 import { useActive, useSurveys } from '../hooks/index'
 import { Spinner } from '../atom/index'
@@ -38,25 +38,33 @@ const Home = () => {
                                 Crear Nueva encuesta
                                 <IconAdd />
                             </ButtonAddSurvey>
-                            <CardContainer>
-                                {
-                                    currentSurveys.map((resp, index)=>
-                                        <CardSurvey
-                                            key={index}
-                                            title={resp.description}
-                                            author={data.name}
-                                            question={resp.questions.length}
-                                            buttonTitle= "Ver"
-                                            toggleSurvey={ () => toggleSurvey(resp._id)}
-                                        />
-                                    )
-                                }
-                            </CardContainer>
-                            <Pagination
-                                page={ page }
-                                totalPages={ totalPages }
-                                paginate={ paginate }
-                            />
+                            {
+                                !currentSurveys.length ? (
+                                    <NotPoll>Usted aun no tiene encuestas creadas <br/> Pulse en Crear nueva encuesta para crear una <br/> 🎶💖😉🤞</NotPoll>
+                                ) : (
+                                   <div>
+                                    <CardContainer>
+                                    {
+                                        currentSurveys.map((resp, index)=>
+                                            <CardSurvey
+                                                key={index}
+                                                title={resp.description}
+                                                author={data.name}
+                                                question={resp.questions.length}
+                                                buttonTitle= "Ver"
+                                                toggleSurvey={ () => toggleSurvey(resp._id)}
+                                            />
+                                        )
+                                    }
+                                    </CardContainer>
+                                    <Pagination
+                                        page={ page }
+                                        totalPages={ totalPages }
+                                        paginate={ paginate }
+                                    />
+                                   </div>
+                                )
+                            }
                         </MySurveys>
                         <Modal 
                             state={ active }

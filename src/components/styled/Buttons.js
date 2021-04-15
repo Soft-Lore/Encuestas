@@ -1,12 +1,9 @@
 import { css } from 'styled-components'
 
 export const Button = css`
-background-color: ${props => props.secondary === 'true' ? '#2f28a6' : 'transparent'};
-color: ${props => props.secondary === 'true' ? '#fff' : null};
+    background-color: ${props => props.secondary === 'true' ? '#2f28a6' : 'transparent'};
+    color: ${props => props.secondary === 'true' ? '#fff' : null};
     display: block;
-    width: max-content;
-    padding-left: 25px;
-    padding-right: 25px;
     border-radius: 5px;
     cursor: pointer;
     font-family: 'Source Sans Pro', sans-serif;
@@ -21,10 +18,5 @@ color: ${props => props.secondary === 'true' ? '#fff' : null};
             color: #fff;
             border: 1px solid #2f28a6;
         }
-    }
-
-    @media screen and (max-width: 600px){
-        padding-left: 15px;
-        padding-right: 15px;
     }
 `;

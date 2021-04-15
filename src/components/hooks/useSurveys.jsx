@@ -6,25 +6,19 @@ const useSurveys = (url, optional)=> {
     const [totalPages, setTotalPages] = useState(0);
     const surveysPerPage = 8;
 
+    const getSurvey = async () => {
+        await axios.get(url)
+            .then(resp => {
+                optional ? setSurveys(resp.data.Poll.questions) : setSurveys(resp)
+                setTotalPages(Math.ceil(resp.data.userDB.length / surveysPerPage))
+            }).catch(error => console.log(error))
+    }
+
     useEffect(() => {
-        const getSurvey = async () => {
-            await axios.get(url)
-                .then(resp => {
-                    optional ? setSurveys(resp.data.Poll.questions) : setSurveys(resp)
-                    setTotalPages(Math.ceil(resp.data.userDB.length / surveysPerPage))
-                }).catch(error => console.log(error))
-        }
         getSurvey();
     }, [url, optional])
 
     const extra = () => {
-        const getSurvey = async () => {
-            await axios.get(url)
-                .then(resp => {
-                    optional ? setSurveys(resp.data.Poll.questions) : setSurveys(resp)
-                    setTotalPages(Math.ceil(resp.data.userDB.length / surveysPerPage))
-                }).catch(error => console.log(error))
-        }
         getSurvey();
     }
 

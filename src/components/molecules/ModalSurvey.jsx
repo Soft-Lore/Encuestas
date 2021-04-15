@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react'
-import Modal from 'react-modal'
-import CreateInput from './CreateInput'
 import axios from 'axios'
+import CreateInput from './CreateInput'
+import Modal from 'react-modal'
+import sucessImg from '../../img/sucess.png'
+import SuccessModal from '../molecules/SuccessModal'
 import { BiAddToQueue, BiSend } from 'react-icons/bi'
 import { Errors } from '../atom/index'
 import { Token } from '../functions/index'
-import '../css/ModalSurvey.css'
-import sucessImg from '../../img/sucess.png'
-import SuccessModal from '../molecules/SuccessModal'
 import { useActive } from '../hooks/index'
+import '../css/ModalSurvey.css'
 
 Modal.setAppElement('#root')
 
@@ -192,7 +192,7 @@ const ModalSurvey = ({ state, toggle, reload }) => {
                         option={ inputOption }
                         question={ inputQuestion }
                         key="one"
-                        />  
+                    />  
                 </div>
             </form>
             <div className="survey-body">

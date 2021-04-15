@@ -8,6 +8,10 @@ const PollSchema = new Schema({
     ref: 'User',
     required: true
   },
+  author:{
+    type: String,
+    required: true
+  },
   description: {type:String, required:true},
   questions: [{
     name: String,

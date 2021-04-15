@@ -49,7 +49,7 @@ const LogIn = (props) => {
             <SideImage image={ LogInImage }/>
             <div className="side2">
                 <div className="side2-content">
-                    <TitleForm content="Iniciar Sesion"/>
+                    <TitleForm content="Iniciar Sesión"/>
                     <form 
                         className="form form-login"
                         onSubmit={ e => toggleSubmit(e) }

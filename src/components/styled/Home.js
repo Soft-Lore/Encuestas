@@ -26,13 +26,13 @@ export const MySurveys = styled.section`
         width: 90%;
     }
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 700px){
         width: 100%;
     }
 `;
 
 export const ButtonAddSurvey = styled.button`
-    padding: 7px 0;
+    padding: 7px 10px;
     ${Button}
     color:  #2f28a6;
     position: relative;
@@ -50,6 +50,13 @@ const cardsAnimation = keyframes`
     }
 `;
 
+export const NotPoll = styled.span`
+    position: relative;
+    top: 15px;
+    display:block;
+    text-align: center;
+`;
+
 export const CardContainer = styled.div`
     animation: ${cardsAnimation} .6s ease-out;
     animation-fill-mode: forwards; 
@@ -63,14 +70,23 @@ export const CardContainer = styled.div`
     gap: 20px;
     
     @media screen and (max-width: 1150px){
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         width: 95%;
     }
-    @media screen and (max-width: 850px){
-        grid-template-columns: repeat(2, 250px);
+    @media screen and (max-width: 950px){
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+     @media screen and (max-width: 850px){
         width: 98%;
     }
     @media screen and (max-width: 600px){
-        grid-template-columns: repeat(1, .5fr);
+        place-items: center;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+
+     @media screen and (max-width: 500px){
+        gap: 10px;
     }
 `;

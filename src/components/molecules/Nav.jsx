@@ -2,9 +2,8 @@ import React from 'react'
 import Modal from './ModalLogIn'
 import user from '../../img/user1.svg'
 import { NavBar, NavButton, SectionButtons, NavOptions, SectionLogOut, LogOutOptions, ImgUser, ContainerOptions, NameUser } from '../styled/Nav';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useActive } from '../hooks/index'
-// import { Token } from '../tokenProvider'
 import { Token }  from '../functions/index'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
@@ -15,6 +14,7 @@ const Nav = () => {
     const history = useHistory();
     const token = Token()
     const [active, toggleActive] = useActive();
+    const location = useLocation()
 
     const logOut = async () => {       
         const token = cookie.get('auth')
@@ -32,10 +32,16 @@ const Nav = () => {
         <>
         <NavBar>
             <SectionButtons>
-                <NavButton to="/" secondary="true">
+                <NavButton 
+                    to="/" 
+                    secondary={location.pathname === '/' ? "true" : null}
+                >
                     Mis Encuestas
                 </NavButton>
-                <NavButton to="/surveys">
+                <NavButton 
+                    to="/surveys" 
+                    secondary={location.pathname === '/surveys' ? "true" : null}
+                >
                     Responder Encuestas
                 </NavButton>
             </SectionButtons>

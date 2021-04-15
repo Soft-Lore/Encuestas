@@ -105,8 +105,25 @@
     }
 }
 
+@media screen and (max-width: 700px){
+    .card {
+         height: 300px;
+    }
+
+    .cardTitle {
+        font-size: 1rem;
+    }
+} 
+
 @media screen and (max-width: 600px){
     .card {
-        width: 350px;
+        width: 230px;
+    }
+} 
+
+
+@media screen and (max-width: 500px){
+    .card {
+        width: 100%;
     }
 } 

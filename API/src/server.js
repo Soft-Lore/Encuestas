@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const path = require('path')
 
 const app = express();
 
@@ -20,6 +21,7 @@ dotenv.config();
 require('./database');
 
 //middlewares
+app.use(express.static(path.join(__dirname, '../build')))
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -29,6 +31,10 @@ app.use(cookieParser());
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/login.routes'));
 app.use(require('./routes/poll.routes'));
+
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 //exports Test
 module.exports = app;

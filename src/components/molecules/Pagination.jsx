@@ -33,8 +33,6 @@ const Pagination = ({ page, totalPages, paginate }) => {
         }
     }, [totalPages, page])
 
-    console.log(totalPages);
-
     return (
         (
             totalPages < 2 ? null : (

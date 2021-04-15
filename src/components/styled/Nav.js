@@ -20,17 +20,15 @@ export const NavBar = styled.nav`
     
 export const NavButton = styled(NavLink)`
     position: relative;
+    padding: 7px 10px;
     ${Button};
-    height: 28px;
     padding-top: 5px;
     text-decoration: none;
     margin-left: 10px;
     font-size: 1rem;
     
     @media screen and (max-width: 600px){
-        height: 25px;
         font-size: .9rem;
-        padding-top: 3px;
     }
 `;
 

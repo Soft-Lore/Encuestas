@@ -15,13 +15,17 @@ const CreateInput = ({ question, optionHandle, option }) => {
                 <li>
                     <Input 
                         name="Option"
-                        place="Option"
+                        place="Opción"
                         styles="options"
                         require={ option }
                     />
                 </li>
             </ul>
-            <button className="add-option" onClick={optionHandle}>
+            <button 
+                className="add-option" 
+                title="Añadir opción"
+                onClick={optionHandle}
+            >
                 <BiPlus />
             </button>    
         </div>

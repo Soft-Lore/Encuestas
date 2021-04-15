@@ -163,6 +163,8 @@ exports.newPoll = (req, res)  => {
 
   User.findOne({ _id: poll.created_by }, (Err, userDB) => {
     
+    if(!Err && userDB) poll.author = userDB.name;
+
     for (var i = 0; i < req.body.questions.length; i++)
       questionsArray.push(convertQuestion(req.body.questions[i]));
 
