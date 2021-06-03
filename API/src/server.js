@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
+global.atob = require("atob");
+global.Blob = require('node-blob');
+
 const app = express();
 
 //initialization

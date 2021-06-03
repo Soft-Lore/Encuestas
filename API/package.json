@@ -14,6 +14,7 @@
   "dependencies": {
     "@hapi/boom": "^9.1.1",
     "@hapi/joi": "^17.1.1",
+    "atob": "^2.1.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -23,6 +24,8 @@
     "mocha": "^8.2.1",
     "mongoose": "^5.11.13",
     "mongoose-unique-validator": "^2.0.3",
+    "node-blob": "0.0.2",
+    "nodemailer": "^6.6.1",
     "supertest": "^6.1.2",
     "underscore": "^1.12.0"
   },
