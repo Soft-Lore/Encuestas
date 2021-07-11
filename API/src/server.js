@@ -5,6 +5,9 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path')
 
+global.atob = require("atob");
+global.Blob = require('node-blob');
+
 const app = express();
 
 //initialization

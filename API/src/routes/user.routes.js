@@ -15,6 +15,10 @@ app.get('/api/users/:id',controllers.GetOneUser);
 /**Registro de Usuarios */
 app.post('/api/signup',validate(userSchema),controllers.PostUser);
 
+app.get('/api/user/confirm/:token',controllers.confirmEmail);
+
+// app.put('/api/user/confirm/:token',controllers.confirmEmail);
+
 /**Actualizacion de Perfil de usuarios */
 app.put('/api/users/:id',auth,controllers.PutUser);
 
@@ -22,5 +26,4 @@ app.put('/api/users/:id',auth,controllers.PutUser);
 app.delete('/api/users/:id',controllers.DeleteUser);
 
 
-
-module.exports  = app;
+module.exports  = app; 

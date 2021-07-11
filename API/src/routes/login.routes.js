@@ -5,6 +5,7 @@ const {auth} =require('../middlewares/auth');
 
 const routes = require('../controllers/login.controller');
 
+
 /**Inicio de Secion de los Usuarios */
 app.post('/api/login',routes.Login);
 

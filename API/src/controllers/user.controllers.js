@@ -4,38 +4,43 @@ const User = require('../models/user.models');
 
 const bcrypjs = require('bcryptjs');
 
-exports.GetOneUser = (req,res) => {
+const { getTemplate, sendEmail } = require('../helper/varify.email');
+
+
+
+exports.GetOneUser = (req, res) => {
     let id = req.params.id;
 
-    User.findOne({_id:id},(Err,userDB)=>{
+    User.findOne({ _id: id }, (Err, userDB) => {
         if (Err) {
             return res.status(404).json({
-                ok:false,
-                message:'Usuario no encontrado',
+                ok: false,
+                message: 'Usuario no encontrado',
                 error: Err
             });
         }
         return res.status(200).json({
-            ok:true,
-            message:'Usuario encontrado correctamente',
+            ok: true,
+            message: 'Usuario encontrado correctamente',
             userDB
         });
     })
 }
 
 
-exports.GetAllUser = (req,res) => {
+exports.GetAllUser = (req, res) => {
+   try {
     let desde = req.query.desde || 0;
     desde = Number(desde);
 
     let limit = req.query.limite || 5;
     limit = Number(limit);
-    
-    
-    User.find({ state: true }, 'name email')
+
+
+    User.find({verify:true}, 'name email verify')
         .skip(desde)
         .limit(limit)
-        .exec((err,users) => {
+        .exec((err, users) => {
 
             if (err) {
                 return res.status(400).json({
@@ -49,119 +54,167 @@ exports.GetAllUser = (req,res) => {
                 res.status(200).json({
                     ok: true,
                     users,
-                    content:conteo
+                    content: conteo
                 });
 
             });
         });
+   } catch (error) {
+       
+   }
 
 }
 
 
-exports.PostUser = (req,res) => {
+exports.PostUser = async (req, res) => {
 
     let body = req.body;
-    let token=req.cookies.auth;
+    let token = req.cookies.auth;
+    
 
 
     try {
-        if (!body.email || !body.name || !body.password) {
-            return res.json({ok:false,message:"Por favor revisa los campos 🙈🙉⚠"}).status(400);
-        }else{
-    
-    let newUser = new User({
-        name:body.name,
-        email:body.email,
-        password:body.password,
-        rols:body.role
-    });
-        User.findByToken(token,(Err,user)=>{
-            if(Err) return res(Err);
 
-            if(user) return res.status(400).json({
-                error :true,
-                message:"Ya se ha autentificado como usuario 🧐😐🤡"
+        if (!body.email || !body.name || !body.password) {
+
+            return res.json({ ok: false, message: "Por favor revisa los campos 🙈🙉⚠" }).status(400);
+
+        } else {
+
+            let newUser = new User({
+                name: body.name,
+                email: body.email,
+                password: body.password,
+                rols: body.role
             });
 
-            else{
-                User.findOne({email:newUser.email},(Err,user)=>{
-        
-                    if (user) {
-                        return res.json({ok:false, message :"Ese email ya existe! 😑😑"});
-                    }
-            
-                    newUser.save((err,doc)=>{
-                        if (err) {
-                            return res.json({ok:false, message: 'Solicitud Incorrecta! 😝😝'})
-                        }
-            
-                        newUser.generateToken((err,user)=>{
-                            if(err) return res.status(400).send(err);
-                            return res.cookie('auth',user.token).json({
-                                isAuth : true,
-                                User:doc
-                            });
-                        })
-                    });
-                    
+            await User.findByToken(token, (Err, user) => {
+                if (Err) return res(Err);
+
+                if (user) return res.status(400).json({
+                    error: true,
+                    message: "Ya se ha autentificado como usuario 🧐😐🤡"
                 });
-            }
-        })
-    
-    }
-    
-} catch (error) {
+
+                else {
+                    User.findOne({ email: newUser.email }, async (Err, user) => {
+
+                        if (user) {
+                            return res.json({ ok: false, message: "Ese email ya existe! 😑😑" });
+                        } else {
+
+                            const template = getTemplate(body.name, token);
+
+                            await sendEmail(body.email, 'Este es un email de prueba', template);
+
+                            await newUser.save((err, doc) => {
+                                if (err) {
+                                    return res.json({ ok: false, message: 'Solicitud Incorrecta! 😝😝' })
+                                }
+
+                                newUser.generateToken((err, user) => {
+                                    if (err) return res.status(400).send(err);
+                                    return res.cookie('auth', user.token).json({
+                                        isAuth: true,
+                                        User: doc
+                                    });
+                                })
+                            });
+                        }
+                    });
+                }
+            })
+
+        }
+
+    } catch (error) {
         res.status(500).json({
-            ok:false,
+            ok: false,
             error
         });
     }
 }
 
 
-exports.PutUser = async (req,res) => {
+/**
+ * Metodo para verificacion de correo electronico por gmail
+ * 
+ */
+
+exports.confirmEmail = async (req, res) => {
+    try {
+        const { token } = req.params;
+
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        var data = JSON.parse(jsonPayload)
+
+        const { _id, email, verify } = data;
+
+        const validate = { verify: true }
+
+        await User.findOneAndUpdate({ email: email }, validate, { runValidators: true, useFindAndModify: false, new: true }, (error, result) => {
+            if (error) {
+                console.log('error')
+                return res.status(400).send(error)
+            }
+            res.status(200).send(result)
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            msg: 'Error al confirmar usuario'
+        });
+    }
+}
+
+exports.PutUser = async (req, res) => {
     let id = req.params.id;
     let update = req.body;
 
     const salt = await bcrypjs.genSaltSync(10);
-    req.body.password = await bcrypjs.hash(req.body.password,salt);
+    req.body.password = await bcrypjs.hash(req.body.password, salt);
 
     try {
-        User.findByIdAndUpdate(id,update, { new: true }, (err, usuarioDB) => {
+        User.findByIdAndUpdate(id, update, { new: true }, (err, usuarioDB) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     err
                 });
             }
-            
-            return req.user.deleteToken(req.token,(err,user)=>{
-                if(err) return res.status(400).json({ok:false,error:err});
+
+            return req.user.deleteToken(req.token, (err, user) => {
+                if (err) return res.status(400).json({ ok: false, error: err });
                 res.clearCookie("auth");
                 res.sendStatus(200);
             });
         });
     } catch (error) {
         res.json({
-            ok:false,
-            error:error
+            ok: false,
+            error: error
         });
     }
-    
+
 };
 
 
 
 
-exports.DeleteUser = (req,res) => {
+exports.DeleteUser = (req, res) => {
     let id = req.params.id;
 
- 
-    User.findOneAndRemove(id,(err,userDB)=>{
+
+    User.findOneAndRemove(id, (err, userDB) => {
         if (err) {
             return res.status(400).json({
-                ok:false,
-                message:'Solicitud incorrecta al actualizar 😫😫',
+                ok: false,
+                message: 'Solicitud incorrecta al actualizar 😫😫',
                 error: err
             });
         }
@@ -176,8 +229,8 @@ exports.DeleteUser = (req,res) => {
         }
 
         return res.status(201).json({
-            ok:true,
-            message:'Usuario eliminado correctamente 🥳🥳',
+            ok: true,
+            message: 'Usuario eliminado correctamente 🥳🥳',
             userDB
         });
     });
