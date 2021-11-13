@@ -406,7 +406,6 @@ exports.PostUserAllPoll = (req, res)  => {
   
 }
 
-/**Metodos Privados */
 
 function moreVoted(array) {
 
@@ -438,11 +437,9 @@ function convertQuestion(body){
 
     let question = new Object();
   
-    //almacenamos el nombre que viene en el body y creamos un arreglo
     question.name = body.name;
     question.options =  new Array();
   
-    //por cada elemento del array de opciones, se crea un nuevo objeto
     for (var i = 0; i < body.options.length; i++){
       let value = new Object();
       value.option = body.options[i];
